@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load filters %}
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for qmeasure in qm_list %}
+        <button onclick="setTimeout(function(){location.href=generate_url({{ qmeasure.measure_id }});},500);"> {{ qmeasure.measure_name }}</button>
+    {% endfor %}
+    <br/>
+    {% for key in qm_fielditems %}
+        <p>{{ key.0 }}</p>
+        <ul>
+        {% for parameter in field_vals|indexing:forloop.counter0|indexing:0 %}
+            {% if parameter != None %}
+                {% if not parameter.mathjaxeqn %}
+                    <li>{{ field_vals|indexing:forloop.parentloop.counter0|indexing:1|indexing:forloop.counter0 }} :
+                        {{ field_vals|indexing:forloop.parentloop.counter0|indexing:0|indexing:forloop.counter0|param_val:"parameter_option"}}
+                    </li>
+                {% else %}
+                    <li>{{ field_vals|indexing:forloop.parentloop.counter0|indexing:1|indexing:forloop.counter0 }} :
+                        {{ field_vals|indexing:forloop.parentloop.counter0|indexing:0|indexing:forloop.counter0|param_val:"mathjaxeqn" }}
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    </ul>
+    {% if references %}
+    <p>References</p>
+    <ul>
+    {% for reference in references %}
+        <li>{{ reference }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% if description %}
+    <p>Description</p>
+    <p>{{ description }}</p>
+    {% endif %}
+<script>
+        function generate_url(qm_id) {
+    var url_path = location.href.split('/')[0] + '/qmbasic/' + qm_id.toString();
+    return url_path;
+}
+</script>
+</body>
+</html>

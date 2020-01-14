@@ -1,0 +1,78 @@
+$$ O(p^3) $$,1
+$$ O(np^2 + p^3) $$,1
+$$ O(n^3) $$,1
+$$ O(in^2) $$,1
+$$ O(l^2np + l^2) $$,1
+$$ O(n) $$,1
+$$ O(in) $$,1
+$$ O((lnp)^3 + m^3) $$,1
+$$ O(r^3 + rn) $$,1
+$$ O(l^2) $$,1
+$$ O(pn) $$,1
+$$ O(r^3 + n) $$,1
+$$ O(n\sqrt(n)) $$,1
+$$ O(r^3) $$,1
+$$ \mathbb{R}^+ $$,2
+"$$ [-1, 1] $$",2
+$$ \mathbb{R} $$,2
+"$$ [0.5, 1]^* $$",2
+"$$ [0,1] $$",2
+$$ \scr{D}_{x/\delta}^n $$,3
+$$ \scr{D}_{x} \times (\scr{D}_{x} \times \scr{M})^n $$,3
+$$ \scr{D}_{x}^n \times \mathbb{N} $$,3
+$$ \scr{D}_{x}^m $$,3
+$$ \scr{D}_{x}^n \times (\scr{D}_{x} \times \scr{M})^m $$,3
+$$ (\scr{D}_{x/\delta} \times L)^n $$,3
+$$ {n} \times \scr{D}_{x/\delta}^n $$,3
+$$ {n}^{|\scr{C}_{k}|} \times (\scr{D}_{x/\delta} \times \scr{M})^n $$,3
+$$ \scr{M}^n $$,3
+$$ \scr{M} $$,3
+$$ \scr{D}_{x/\delta}^m $$,3
+$$ \scr{M}^m $$,3
+$$ \scr{M}^{n-1} $$,3
+$$ \scr{M}^{|\scr{C}_{k}|} $$,3
+$$ (\underline{\scr{Z}} \times \scr{M})^n $$,3
+$$ (\scr{D}_{x} \times \scr{M})^n $$,3
+$$ \{p\} \times \underline{\scr{M}} \times (\scr{D}_{x} \times \scr{M})^n $$,3
+$$ \{p\} \times \scr{D}_{x} \times (\scr{D}_{x} \times \scr{M})^n $$,3
+$$ \scr{M}^\underline{{|\scr{C}_{k}|}} $$,3
+$$ \{n\} \times \scr{M}^n $$,3
+$$ \scr{M}^g \times \scr{M}^n $$,3
+$$ \{ \underline n \} \times \scr{M}^n $$,3
+$$ \{ \underline n \}^2 \times \scr{M}^n $$,3
+$$ \scr{M}^n \times (\scr{M}^{n-1})^n  $$,3
+$$ (\scr{D}_{x} \times \scr{M})^\underline{{|\scr{C}_{k}|}} $$,3
+$$ (\underline{\scr{Z}} \times \scr{M})^\underline{{|\scr{C}_{k}|}} $$,3
+$$ \{n\} \times \scr{D}_{\delta} \times \scr{M}^n $$,3
+$$ \scr{M} \times \mathbb{R}^+ \times \scr{D}_{\delta}^{n} $$,3
+$$ \{\underline n\} \times \mathbb{R}^+ \times (\scr{M} \times \scr{D}_{\delta})^n $$,3
+$$ \{\underline n\}^2 \times \mathbb{R}^+ \times (\scr{M} \times \scr{D}_{\delta})^n $$,3
+$$ \mathbb{R}^+ \times (\scr{M} \times \scr{D}_\delta)^n $$,3
+$$ \scr{D}_\delta \times \scr{M}^n $$,3
+$$ \scr{L} \times \mathbb{R}^+ \times (\scr{M} \times \scr{D}_\delta \times \scr{L})^n $$,3
+$$ \scr{L} \times (\scr{M} \times \scr{L})^n $$,3
+$$ \underline{\scr{C}} \times (\scr{M} \times \scr{L} \times \underline{\scr{C}})^n $$,3
+$$ (\scr{M} \times \scr{L} \times \underline{\scr{C}})^n $$,3
+$$ \scr{M} \times (\scr{M} \times \scr{L})^n $$,3
+$$ (\scr{M} \times \scr{Z})^n $$,3
+$$ (\scr{M} \times \scr{Z})^n \times \scr{M}^m $$,3
+$$ (\scr{D}_{x/\delta} \times \scr{M})^n \times \scr{M}^m \times \scr{M}^m $$,3
+$$ \scr{M}^m \times (\scr{D}_{x} \times \scr{M})^n $$,3
+$$  \{|\underline{\scr{Z}}| \} \times \underline{\scr{M}} $$,3
+$$ \{p\} \times \underline{\scr{M}} $$,3
+$$ \subseteq \{\underline{p} \} $$,3
+$$ \underline{\scr{C}_k} $$,3
+$$ \subseteq \{\underline{n} \} \backslash f $$,3
+$$ \subseteq \{ n \} $$,3
+$$ \underline{\scr{N}_\scr{M}}_{f_{1}} $$,3
+$$ \subseteq \{\underline{n} \} $$,3
+$$ \underline{\scr{C}^n} $$,3
+$$ \{\underline{n} \} $$,3
+$$ \underline{\scr{L}} $$,3
+$$ \scr{N}_{\scr{D}_\underline{f_{1}}} $$,3
+$$ (\scr{D}_x \times \scr{M} \times \scr{Z})^m $$,3
+$$ (\scr{M} \times \scr{Z})^m $$,3
+$$\mathscr{M}$$,4
+$$\mathscr{D}$$,4
+$$\mathscr{M}!$$,4
+$$ \scr{L} \times (\scr{M} \times \scr{L} \times \underline{\scr{C}})^n $$,3

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load filters %}
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for mdp in mdp_list %}
+        <button onclick="setTimeout(function(){location.href=generate_url({{ mdp.mdp_id }});},500);"> {{ mdp.mdp_name }}</button>
+    {% endfor %}
+    <br/>
+    {{ projtechname.0 }} - ( {{ projtechname.1 }} )
+    <p>Data Types</p>
+    <ul>
+    {% for handling_capacity in data_type_vals %}
+        {% if handling_capacity != None %}
+            <li> {{ text_display|indexing:forloop.counter0}}: {{ handling_text|indexing:handling_capacity }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    <p>Taxonomy</p>
+    <ul>
+    {% for handling_capacity in tax_vals %}
+        {% if handling_capacity != None %}
+            <li> {{ text_tax|indexing:forloop.counter0}}: {{ handling_text|indexing:handling_capacity }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    <p>Complexity<br/>
+        {{ complexity }}
+    </p>
+    <p>Reference Paper<br/>
+        {{ reference }}
+    </p>
+    {% if varrefno %}
+    <p>See these references for variants: </p>
+    <ul>
+    {% for varref in varrefno %}
+        <li>{{varref}}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% if tech_variants %}
+    <p>Technique Variants</p>
+    <ul>
+        {% for tech_variant in tech_variants %}
+        <li>{{ tech_variant.0 }} - {{ tech_variant.1}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if description %}
+    <p>Description<br/>
+    {{ description }}
+    </p>
+    {% endif %}
+<script>
+        function generate_url(mdp_id) {
+    var url_path = location.href.split('/')[0] + '/mdpbasic/' + mdp_id.toString();
+    return url_path;
+}
+</script>
+
+</body>
+</html>

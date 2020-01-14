@@ -1,0 +1,29 @@
+Fast Map
+GTM
+ISOMAP
+Landmark ISOMAP
+Laplacian Eigenmap
+LAMP
+LLE
+Hessian LLE
+Kernel LLE
+LDA
+Locality Preser. Proj.
+LSP
+LTSA
+Classical MDS
+Non-metric MDS
+Landmark MDS
+"(Fast, Landmark) MVU"
+Neighb. Comp. Analysis
+Neighb. Preserv. Embed.
+PCA
+Kernel PCA
+Probabilistic PCA
+"Pekalska, PLMP, PLP"
+Chalmer’s
+Glimmer
+Sammon’s NLM
+(Symmetric) SNE
+t-SNE
+Barnes-Hut-SNE

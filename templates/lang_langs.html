@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load filters %}
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for language in language_list %}
+        <button onclick="setTimeout(function(){location.href=generate_url({{ language.language_id }});},500);"> {{ language.language_name }}</button>
+    {% endfor %}
+    <br/>
+    <ul>
+    {% for toolbox in toolboxes_suppd %}
+        <li>{{ toolbox.toolbox_name }}</li>
+        {% if toolbox.description %}
+            <p>Description: {{ toolbox.description }}</p>
+        {% endif %}
+        {% if toolbox|get_refs %}
+            <p>References</p>
+            <ul>
+            {% for reference in toolbox|get_refs %}
+                <li>{{ reference }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    <ul>
+        {% for mdp in mdps_handled %}
+            <li><a href="mdpbasic/{{ mdp.mdp_id }}">{{ mdp.mdp_name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% if description %}
+        <p>Description<br/>
+        {{ description }}
+        </p>
+    {% endif %}
+    </ul>
+<script>
+    function generate_url(method_id) {
+    var url_path = location.href.split('/')[0] + '/lang_mdps/' + method_id.toString();
+    return url_path;
+}
+</script>
+
+</body>
+</html>

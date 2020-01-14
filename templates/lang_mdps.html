@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load filters %}
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for method in methods_list %}
+        <button onclick="setTimeout(function(){location.href=generate_url({{ method.mdp_id }});},500);"> {{ method.mdp_name }}</button>
+    {% endfor %}
+    <br/>
+    {% for key, values in language_data.items %}
+        <p>{{ key|display_string }}</p>
+        <ul>
+        {% for language in values %}
+            <li><a href="lang_langs/{{ language.0|indexing:0 }}">{{ language.0|indexing:1 }}</a></li>
+            {% if language.0|indexing:2 %}
+                <p>Description: {{ language.0|indexing:2 }}</p>
+            {% endif %}
+            <ul>
+            {% for toolbox in language.1 %}
+                <li>{{ toolbox.toolbox_name }}</li>
+                {% if toolbox.description %}
+                    <p>Description: {{ toolbox.description }}</p>
+                {% endif %}
+                {% if toolbox|get_refs %}
+                    <p>References</p>
+                    <ul>
+                    {% for reference in toolbox|get_refs %}
+                        <li>{{ reference }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+
+            {% endfor %}
+            </ul>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    {% if references %}
+    <p>References: </p>
+    <ul>
+    {% for reference in references %}
+        <li>{{reference}}</li>
+    {% endfor %}
+    {% endif %}
+    {% if description %}
+    <p>Description<br/>
+    {{ description }}
+    </p>
+    {% endif %}
+    </ul>
+<script>
+    function generate_url(method_id) {
+    var url_path = location.href.split('/')[0] + '/lang_mdps/' + method_id.toString();
+    return url_path;
+}
+</script>
+
+</body>
+</html>

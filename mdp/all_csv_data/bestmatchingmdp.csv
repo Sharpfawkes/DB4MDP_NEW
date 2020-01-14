@@ -1,0 +1,13 @@
+Any but (MCA)
+"PCA,LDA,SOM,CHLM,CCA,FDP,LAMP,LoC"
+"$$\{Landmark\  MDP\} \cup \{L-MDS,\ Pivot-MDS\}$$ "
+"$$\{Landmark\ MDP\}=\{LSP,\ PLMP,\ LAMP,\ RBF-MP,\ LoCH,\ Kelp,\ PLP\}$$"
+$$\{Supervised\ MDP\}$$
+"$$\{Landmark\  MDP\} \cup \{E-LSP,\ HIPP\}$$ "
+"HIPP,(CHLM,FDP,LSP,SNE,PLMP,LAMP)"
+"PCA, Classical MDS, NLM, NeRV"
+"PCA, iPCA, PCP, LAMP, PLMP, Kelp"
+"CCA, t-SNE, NeRV"
+"PCA, Classical MDS"
+"$$\{Supervised\ MDP\}=\{LDA,\ ClassiMap,\ SLLE,\ S-Isomap,\ MUHSIC,\ S-NeRV,\ DS-tSNE\}$$"
+"LSP, PLMP, LAMP, LoCH, Kelp, PLP, E-LSP, HIPP"

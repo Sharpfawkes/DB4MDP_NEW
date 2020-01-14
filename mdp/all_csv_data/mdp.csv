@@ -1,0 +1,28 @@
+mdp,mdp_fullname,cartesian_id,categorical_id,complexity_id,dissimilarity_id,linearity_id,locality_id,multi_level_id,ne_structures_id,ordinal_id,out_of_core_data_id,reference_paper_id,stability_id,steerability_id,supervision_id
+PCA,Principal Component Analysis,1,NULL,1,NULL,1,NULL,NULL,NULL,NULL,1,65,2,NULL,NULL
+LDA,Linear Discriminant Analysis,1,NULL,2,NULL,1,NULL,NULL,NULL,NULL,1,50,NULL,NULL,1
+Classical MDS,Classical Multidimensional Scaling,1,NULL,3,1,1,NULL,NULL,2,NULL,NULL,155,2,2,2
+Kruskal,Kruskals Algorithm,1,NULL,4,1,NULL,NULL,NULL,2,1,2,79,NULL,2,2
+NLM,Nonlinear Mapping,1,NULL,4,1,NULL,NULL,NULL,2,NULL,2,132,NULL,2,2
+MCA,Mulit-Criteria Analysis,2,1,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,17,NULL,NULL,NULL
+Smacof,Scaling by Majorizing a Complicated Function,1,NULL,4,1,NULL,NULL,NULL,2,1,2,42,NULL,NULL,2
+SOM,Self Organizing Maps,1,NULL,5,NULL,NULL,NULL,NULL,NULL,NULL,1,126,NULL,NULL,NULL
+FastMap,FastMap Algorithm,1,NULL,6,1,NULL,NULL,NULL,2,NULL,2,48,NULL,NULL,2
+Chalmers,Chalmers Method,1,NULL,7,1,NULL,NULL,2,2,NULL,1,32,NULL,2,2
+GTM,Generative topo- graphic mapping,1,NULL,8,NULL,NULL,NULL,NULL,NULL,NULL,2,22,NULL,NULL,NULL
+Pekalska,Pekalskas Algorithm,1,NULL,9,1,1,NULL,NULL,2,NULL,NULL,120,NULL,NULL,2
+CCA,Curvilinear component analysis,1,NULL,10,1,NULL,NULL,NULL,2,NULL,1,43,NULL,NULL,2
+LLE,Locally linear embedding,1,NULL,3,1,NULL,1,NULL,2,NULL,2,129,NULL,NULL,2
+Isomap,Isomap Framework,1,NULL,3,1,NULL,NULL,NULL,1,NULL,2,153,NULL,NULL,2
+Lapl. Eigenmaps,Laplacian Eigenmaps ,1,NULL,3,1,NULL,1,NULL,1,NULL,2,15,NULL,NULL,2
+Force-Directed,Force-Directed Projection Technique,1,NULL,4,1,NULL,NULL,2,NULL,NULL,1,152,NULL,NULL,2
+LTSA,Local tangent space alignment,1,NULL,3,NULL,2,1,NULL,NULL,NULL,NULL,180,NULL,NULL,NULL
+MVU,Maximum variance unfolding,1,NULL,3,1,NULL,1,NULL,2,NULL,2,169,NULL,NULL,2
+LSP,Least square projection,1,NULL,3,1,NULL,1,2,1,NULL,NULL,117,NULL,1,2
+SNE,Stochastic neighbor embedding,1,NULL,4,1,NULL,NULL,2,2,NULL,2,64,NULL,NULL,2
+PLMP,Part-Linear Multidimensional Projection,1,NULL,3,NULL,2,1,2,NULL,NULL,NULL,118,NULL,1,2
+LAMP,Local affine multidimensional projection,1,NULL,11,NULL,NULL,1,2,NULL,NULL,1,73,1,1,2
+RBF-MP,Radial basis function - mulitdimensional projection,1,NULL,12,1,NULL,NULL,NULL,2,NULL,2,2,NULL,1,2
+LoCH,LoCH MDP Technique,1,NULL,13,1,NULL,1,NULL,2,NULL,1,47,NULL,1,2
+ClassiMap,Classimap dimension reduction technique,1,NULL,4,1,NULL,NULL,NULL,2,NULL,2,90,NULL,NULL,1
+Kelp,Kernel-based Learning Platform,1,NULL,14,1,2,1,NULL,2,NULL,2,13,NULL,1,2

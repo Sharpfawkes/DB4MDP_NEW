@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load filters %}
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for task in task_list %}
+        <button onclick="setTimeout(function(){location.href=generate_url({{ task.task_id }});},500);"> {{ task.task_name }}</button>
+    {% endfor %}
+    <br/>
+    <ul>
+    {% for field_data in task_fields %}
+        <li>{{ field_data.0 }} : {{ task_retd|task_filter:field_data.1|task_filter:field_data.2 }}</li>
+    {% endfor %}
+    <li>Reference: {{ reference }}</li>
+    {% if parent_obj %}
+        <li>Parent Task: <a href="/taskbasic/{{ parent_obj.0 }}">{{ parent_obj.1 }}</a></li>
+    {% endif %}
+    {% if children %}
+        <li>Child Tasks</li>
+        <ul>
+        {% for child in children %}
+            <li><a href="/taskbasic/{{ child.task_id }}">{{ child.task_name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if numbers %}
+        <li>Numbers</li>
+        <ul>
+            {% for number in numbers %}
+                <li><a href="taskbasic/{{ number.task_id }}">{{ number.task_name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if description %}
+    <p>Description<br/>
+    {{ description }}
+    </p>
+    {% endif %}
+    </ul>
+<script>
+    function generate_url(task_id) {
+    var url_path = location.href.split('/')[0] + '/taskbasic/' + task_id.toString();
+    return url_path;
+}
+</script>
+
+</body>
+</html>

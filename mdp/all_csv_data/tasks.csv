@@ -1,0 +1,45 @@
+task_name,main_task,actor,ts_id,best_mdp_list_id,input_space_id,output_space_id,parent_id_id,reference_list_id,task_property_id,task_type_id
+Dimension Synthesis ,TRUE,M,,1,20,28,,48,1,1
+Out-of-Core Extension ,TRUE,M,,2,21,29,,8,2,1
+Map Data with Intermediary Landmarks,TRUE,U&M,,3,22,28,,9,3,1
+Define Data-Landmarks Given Data,FALSE,U&M,,4,22,23,3,,,1
+Map Data-Landmarks,FALSE,M,,4,23,31,3,,,1
+Map Data Given Data-Landmarks,FALSE,M,,4,24,28,3,,,1
+Map Labelled Data,TRUE,M,,5,25,28,,7,4,1
+Map Items Relative to Target ,TRUE,M,,6,26,32,,9,3,1
+Multi-Level Mapping,TRUE,M,,7,27,33,,7,5,1
+Name Synthesized Dimension,TRUE,U,75,8,34,61,,5,6,2
+ Map Synthesized Dim. to Orig. Dim. ,TRUE,U,76,9,35,62,,9,7,2
+Discover Relation Betw. Orig. Dim. ,TRUE,U,76,9,36,63,,4,7,2
+Dis. Relation Betw. Vis. Patt. & Orig. Dim.,TRUE,U,76,1,37,63,,4,7,2
+Discover a Seed Point ,TRUE,U,75,10,38,64,,1,8,3
+Discover Neighbors in Map ,TRUE,U,77,10,39,65,,5,8,3
+Brush in Map ,TRUE,U&M,77,10,40,66,,4,8,3
+ Navigate in Map  ,TRUE,U,77,10,41,67,,2,8,3
+Discover a Path in Map ,TRUE,U,77,10,42,68,,4,8,3
+Discover Clusters in Map ,TRUE,U,77,10,28,69,,7,8,3
+Discover Outlier in Map ,TRUE,U,77,10,28,70,,3,8,3
+Dis. Sensitiv.-based Outlier in Data Space ,TRUE,U&M,77,10,43,70,,2,9,3
+Name Cluster 1,TRUE,U,76,10,44,71,,4,10,4
+Name Cluster 2,TRUE,U,76,10,45,71,,4,8,4
+Discover Neighbors in Data Space ,TRUE,U,76,10,46,65,,5,6,4
+Brush in Data Space ,TRUE,U&M,76,11,47,66,,2,6,4
+Navigate in Data Space ,TRUE,U&M,76,10,48,72,,2,6,4
+Discover a Path in Data Space ,TRUE,U&M,76,10,49,68,,2,6,4
+Discover Density-based Clusters in Data Space,TRUE,U&M,76,12,50,69,,3,6,4
+Discover Density-based Outlier in Data Space ,TRUE,U&M,76,12,50,70,,1,6,4
+Discover Neighb. of OOC It. in Data Space ,TRUE,U,77,12,51,68,,1,6,4
+Discover Class-Outlier in Data Space ,TRUE,U&M,77,12,52,70,,2,11,4
+Discover Class-Outlier in Map ,TRUE,U,77,12,53,70,,1,11,4
+Match Clusters and Classes in Map ,TRUE,U,77,12,55,15,,14,11,4
+Evaluate Cluster Purity in Map,FALSE,U,77,13,54,15,33,,11,4
+Evaluate Class Compactness in Map,FALSE,U,77,13,78,15,33,,11,4
+Classify Out-of-Core Item in Map ,TRUE,U,77,13,56,71,,2,11,4
+Steer Projection by moving Landmarks in Map,TRUE,U&M,75,13,57,28,,11,12,4
+Define Map-Landmarks Given Map,FALSE,U,75,10,57,31,37,,13,4
+Change Map-Landmarks’ Positions,FALSE,U,75,10,58,31,37,,13,4
+Map Data Given Map-Landmarks,FALSE,M,,10,59,28,37,,,4
+Sample Data Space from Map ,TRUE,U&M,75,10,57,73,,2,10,4
+Define Map-Landmarks Given Map.,FALSE,U,75,10,57,31,41,,13,4
+Position Map-Landmarks in Data Space,FALSE,M,,10,60,23,41,,7,4
+Comp./Disp. Map-Landmarks’ Values,FALSE,M,,10,23,74,41,,7,4

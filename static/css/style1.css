@@ -1,0 +1,371 @@
+
+.c {
+    table-layout: auto;
+    width: 100%;   
+}
+
+/*START for Basic and Advanced bar */
+.basicadvance {
+    color: black;
+        background-color: #D6DBDF;
+}
+
+.basicadvance a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+        outline: 5px solid black;
+
+}
+
+.basicadvance a:hover {
+    background-color: black;
+    color: white;
+}
+
+.basicadvance a.active {
+    background-color: #4CAF50;
+    color: white;
+    outline: 5px solid black;
+}
+/*END for Basic and Advanced bar */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.button {
+    background-color: rgb(197, 153, 114);
+}
+
+.Exportascsv {
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  height: 50px;
+  width: 150px;
+  color: #fff;
+  background-color: #4CAF50;
+}
+
+.butt {
+  display: inline-block;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  height: 37px;
+  width: 50%;
+  color: black;
+  background-color: white;
+  border: 2px solid black;
+  background: none;
+}
+
+.butt:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+
+
+.butt2 {
+  display: inline-block;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  height: 37px;
+  width: 90%;
+  color: black;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.butt2:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+
+
+.top-container {
+  background-color: #E3D3BC;
+  padding: 30px;
+  text-align: center;
+}
+
+.header {
+  padding: 10px 16px;
+  background: #555;
+  color: #f1f1f1;
+}
+
+.content {
+  padding: 16px;
+    background-color: #D7D7D7;
+
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 40px;
+}
+
+.header a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  width: 14.2%;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.header a:hover {
+  background: #ddd;
+  color: black;
+}
+
+
+.left {
+  color: black;
+  background: orange;
+  float: left;
+  width: 20%;
+}
+
+.right {
+  color: #D6DBDF;
+  background: #D6DBDF;
+      background-color: #D6DBDF;
+
+  float: left;
+  width: 39%;
+}
+
+.leftntopnav {
+  color: black;
+  float: left;
+  width: 30%;
+  background-color: #D6DBDF;
+  overflow: hidden;
+}
+
+.leftntopnav a {
+    float: initial;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+        outline: 5px solid black;
+
+}
+
+.leftntopnav a:hover {
+    background-color: black;
+    color: white;
+}
+
+.leftntopnav a.active {
+    background-color: #4CAF50;
+    color: white;
+    outline: 5px solid black;
+}
+
+/*CSS for top navigation bar */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+/*END for top navigation bar */
+.top-container {
+  background-color: #E3D3BC;
+  padding: 30px;
+  text-align: center;
+}
+
+.header {
+  padding: 10px 16px;
+  background: #555;
+  color: #f1f1f1;
+}
+
+.header a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  width: 14.2%;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.header a:hover {
+  background: #ddd;
+  color: black;
+
+/*START OF CONTACT FORM */
+.k{}
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+/* CHECKLIST MN FN */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+/* END CHECKLIST MN FN */

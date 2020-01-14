@@ -1,0 +1,487 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300,600,800,400);
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+
+
+/*.l-nav, .nav and .l-page margins changed to make room for the qcri logo. Update in the sass file.*/
+.MathJax {
+    font-size: 35px !important;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    font-family: 'Ubuntu', 'Open Sans', sans-serif;
+    transition: 0.3s;
+}
+
+p, td {
+    font-family: 'Open Sans', sans-serif;
+}
+
+tr img{
+    background-color: none;
+}
+
+.h4 {
+    margin: 0;
+    padding: 0 0 10px;
+    font-size: 32px;
+    color:#fff;
+}
+
+.l-site {
+    margin: 0 auto;
+    max-width: 1600px;
+    position: relative;
+    z-index: 1;
+    background: #000;
+}
+
+    .l-site:before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 350px;
+        display: block;
+        background: #3a4043;
+        z-index: 0;
+    }
+
+.l-page {
+    position: relative;
+    margin-left: 350px;
+    background: #fff;
+    z-index: 2;
+    box-shadow: 1px 0 25px rgba(0, 0, 0, 0.25);
+    -webkit-transition: 0.35s;
+    -moz-transition: 0.35s;
+    transition: 0.35s;
+}
+
+.l-nav {
+    position: absolute;
+    width: 350px;
+    display: block;
+    background: #3a4043;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.band h1 {
+    margin: 0;
+    padding: 0 0 10px;
+    font-size: 32px;
+}
+
+.band p {
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+}
+
+.head-band-container, .band-container {
+    left: 0;
+    right: 0;
+    margin: 0;
+    min-height: 5vh;
+    max-width: 960px;
+    display: table;
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: 0 2em 0 0;
+}
+
+.head-band-container {
+    padding: 0 0;
+}
+
+.heading-band-inner, band-inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.heading-band-inner{
+    padding: 1em 0;
+}
+.band-inner {
+    color:lightblue;
+    padding: 3em 0 4em 2em;
+}
+
+.band-inner > img {
+        margin: 0 auto;
+        width: 80%;        
+}
+
+.band-a {
+    text-align: center;
+    background: #131416;
+    color: #fff;
+    z-index: 50;
+}
+
+h1{
+    text-align:center;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+td:hover {
+    background-color: #3a4043;
+}
+
+h2{
+    font-size: 17px;
+    text-align: left;
+}
+
+.band-b {
+    background:#000;
+    height: 100%;
+}
+
+.band-c {
+    background: #000;
+    height: auto;
+}
+
+    .band-c li, h2, h3 {
+        color: #fff;
+    }
+
+.band-d {
+    background: #FF4E50;
+}
+
+.nav {
+    width: 350px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 30px;
+    overflow: auto;
+}
+
+    .nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .nav li {
+        margin: 0;
+        padding: 0;
+        -webkit-transition: 0.25s;
+        -moz-transition: 0.25s;
+        transition: 0.25s;
+        z-index:40;
+    }
+
+    .nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 28px;
+        font-weight: 800;
+        display: block;
+        padding: 20px 0;
+    }
+
+    #qcri_logo{
+        padding:0 0;
+    }
+
+    .nav .nav-primary {
+        opacity: 1;
+    }
+
+        .nav .nav-primary:hover {
+            opacity: 0.7;
+        }
+
+    .nav .nav-secondary {
+        opacity: 0.4;
+    }
+
+        .nav .nav-secondary:hover {
+            opacity: 0.7;
+        }
+
+.menu {
+    display: none;
+    position: fixed;
+    top: 25px;
+    left: 1.5em;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+    .menu:hover .menu-hamburger:before,
+    .menu:hover .menu-hamburger:after {
+        width: 24px;
+    }
+
+    .menu.is-active .menu-hamburger {
+        background: none;
+    }
+
+        .menu.is-active .menu-hamburger:before,
+        .menu.is-active .menu-hamburger:after {
+            top: 0;
+            width: 24px;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .menu.is-active .menu-hamburger:after {
+            -webkit-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+
+        .menu.is-active .menu-hamburger:hover {
+            -webkit-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+.menu-hamburger {
+    position: relative;
+    width: 24px;
+    height: 4px;
+    margin: 10px 0;
+    background: #fff;
+    border-radius: 4px;
+    transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+    .menu-hamburger:before, .menu-hamburger:after {
+        content: '';
+        display: block;
+        width: 24px;
+        height: 4px;
+        background: #fff;
+        position: absolute;
+        border-radius: 4px;
+        transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .menu-hamburger:before {
+        top: -8px;
+        left: 0;
+        width: 22px;
+    }
+
+    .menu-hamburger:after {
+        top: 8px;
+        width: 16px;
+        left: 0;
+    }
+
+@media screen and (max-width: 980px) {
+    .menu {
+        display: block;
+    }
+
+    .l-site.is-open {
+        overflow: hidden;
+    }
+
+        .l-site.is-open .l-page {
+            -webkit-transform: translateX(240px);
+            -moz-transform: translateX(240px);
+            -ms-transform: translateX(240px);
+            -o-transform: translateX(240px);
+            transform: translateX(240px);
+        }
+
+    .l-page {
+        margin-left: 0;
+        z-index: 3;
+    }
+
+    .l-nav {
+        z-index: 2;
+    }
+
+    .band-container {
+        padding: 0 1.5em;
+    }
+}
+
+/*Here starts the styling for the table to be created*/
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+td, th {
+    width: 50%;
+    border-color: white;
+    padding: 8px;
+}
+
+td {
+    font-size: 22px;
+    /*border-right: 3px solid white;
+    border-left: 3px solid white;*/
+}
+
+th{
+    padding: 0 0 25px 0;
+    text-align: center;
+    font-size:32px;
+}
+
+.button{
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: blue;
+    color: black;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    background-color: white;
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        background-color: black;
+        border-radius: 50%;
+    }
+
+/*.table-main {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #2E3D49;
+    color: #02B3E4;
+    display: flex;
+    position:relative;
+}
+
+table {
+    table-layout: fixed;
+    padding: 1%;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+td {
+    position: relative;
+    width: 10%;
+    height: 10%;
+    transform-origin: center;
+    transition: none;
+}
+
+    td:not(:last-child) {
+        border-right: 1px solid #0E8FB5;
+    }
+
+tr:not(:last-child) td {
+    border-bottom: 1px solid #0E8FB5;
+}
+
+td:hover {
+    z-index: 1;
+    color: #fff;
+    background-color: #2E3D49;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    transform: scale(1.1);
+}
+
+.col,
+.row {
+    font-weight: bold;
+    color: #fff;
+}
+
+
+@media (min-width: 1280px) {
+    table {
+        width: 70%;
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1920px) {
+    table {
+        width: 50%;
+        font-size: 24px;
+    }
+}*/
+
+.drop-down-content{
+    display: block;
+}
