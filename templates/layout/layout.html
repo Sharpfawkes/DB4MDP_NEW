@@ -1,0 +1,71 @@
+{% load static %}
+{% load mdp_filters %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title%}{% endblock %}</title>
+
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css'>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylermain118.css' %}" />
+    <link rel='stylesheet' href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="{% static 'js/script8.js' %}"></script>
+    <!--<script src="https://kit.fontawesome.com/d2154e0601.js"></script>-->
+    <script>
+        $("td:last").css({ border- right: "0px"});
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        CommonHTML: {
+        scale: 190
+        }
+        });
+    </script>
+    <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+    <div class="l-site">
+        <div class="l-nav">
+            <nav class="nav">
+                <ul>
+                    <li><img src='{% static "qcri.png" %}'></li>
+                    <li class="nav-primary"><a href="/mdp/">Home</a></li>
+                    <li class="nav-primary"><a href="/mdp-basic/0/">Techniques</a></li>
+                    <li class="nav-primary"><a href="/tasks-basic/0/">Tasks</a></li>
+                    <li class="nav-primary"><a href="/quality-basic/0/">Quality Measure</a></li>
+                    <li class="nav-primary"><a href="/enrich-basic/0/">Enrichment</a></li>
+                    <li class="nav-secondary"><a href="/about/">About</a></li>
+                    <li class="nav-secondary"><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="l-page">
+            <section class="band band-a">
+                <div class="head-band-container">
+                    <div class="head-band-inner">
+                        <h1>Multidimensional Projections for Visual Analytics</h1>
+                    </div>
+                </div>
+            </section>
+            <section class="band band-b">
+                <div class="band-container">
+                    <div class="band-inner">
+                        {% block content1 %}{% endblock %}
+                    </div>
+                </div>
+            </section>
+            <section class="band band-c">
+                <div class="band-container">
+                    <div class="band-inner">
+                        {% block content2 %}{% endblock %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" type="text/css" href="vendors/css/normalize.css">
+        <!-- Used for setting up the fluid grid -->
+        <link rel="stylesheet" type="text/css" href="vendors/css/grid.css">
+        <!-- Used for putting ions onto the page -->
+        <link rel="stylesheet" type="text/css" href="vendors/css/ionicons.min.css">
+        <!-- For the introduction Carousel -->
+        <link rel="stylesheet" type="text/css" href="vendors/css/slick.css">
+        <link rel="stylesheet" type="text/css" href="vendors/css/slick-theme.css">
+        <link rel="stylesheet" type="text/css" href="vendors/css/animate.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/queries.css">
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"/>
+        <title>Omnifood</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="row">
+                    <img src="resources/img/logo-white.png" alt="QCRI Logo" class="logo">
+                    <!-- <img src="resources/img/logo.png" alt="QCRI Logo" class="logo-black"> -->
+                    <ul class="main-nav js--main-nav">
+                        <li><a href="#intro">The paper</a></li>
+                        <li><a href="#query">Query Tool</a></li>
+                        <li><a href="#team">Meet the Team</a></li>
+                        <!-- <li><a href="#plans">Sign up</a></li> -->
+                    </ul>
+                    <a class="mobile-nav-icon js--nav-icon"><i class="ion-navicon-round"></i></a>
+                </div>
+            </nav>
+            <div class="hero-text-box">
+                <h1>Introduction</h1>
+            </div>
+            <section id = "introduction">
+            <div class="long-copy slick-intro">
+                <div>
+                    Visual analysis of multidimensional data requires expressive and effective ways to reduce data dimensionality to encode them visually. Multidimensional projections (MDP) figure among the most important visualization techniques in this context, transforming multidimensional data into scatter plots whose visual patterns reflect some notion of similarity in the original data. However, MDP come with distortions that make these visual patterns not trustworthy, hindering users to infer actual data characteristics. Moreover, the patterns present in the scatter plots might not be enough to allow a clear understanding of multidimensional data, motivating the development of layout enrichment methodologies to operate together with MDP.
+                </div>
+                <div>
+                    This survey attempts to cover the main aspects of MDP as a visualization and visual analytic tool. It provides detailed analysis and taxonomies as to the organization of MDP techniques according to their main properties and traits, discussing the impact of such properties for visual perception and other human factors. The survey also approaches the different types of distortions that can result from MDP mappings and it overviews existing mechanisms to quantitatively evaluate such distortions.
+                </div>
+                <div>
+                    A qualitative analysis of the impact of distortions on the different analytic tasks performed by users when exploring multidimensional data through MDP is also presented. Guidelines for choosing the best MDP for an intended task are also provided as a result of this analysis. Finally, layout enrichment schemes to debunk MDP distortions and/or reveal relevant information not directly inferable from the scatter plot are reviewed and discussed in the light of new taxonomies.<br/>
+                    We conclude the survey providing future research axes to fill discovered gaps in this domain.
+                </div>
+            </div>
+        </section>
+        </header>
+        
+        <section class="section-features js--section-features" id="features">
+            <div class="row">
+                <!-- if we want a long dash we need to use a special character i.e. &mdash; -->
+                <h2>Query Tool &mdash; Parameter Selection</h2>
+            </div>
+            
+            <!-- The row and col classes are are inherited from grid.css i.e. the fluidgrid setup we are using. span-1-of-4 implies split the row into 4 columns and assign the content within this div 1 column out of the 4. 
+            <a class="btn btn-full js--scroll-to-plans" href="#">I'm hungry</a>
+            <a class="btn btn-ghost js--scroll-to-start" href="#">Show me more</a>
+            -->
+            <div class="row js--wp-1">
+                <h3>Choose a table to query from</h3>
+                <div class="col span-1-of-4 box">
+                    <a class="btn btn-full" href="#">Techniques</a>
+                </div>
+                <div class="col span-1-of-4 box">
+                    <a class="btn btn-full" href="#">Tasks</a>
+                </div>
+                <div class="col span-1-of-4 box">
+                    <a class="btn btn-full" href="#">Enrichment</a>
+                </div>
+                <div class="col span-1-of-4 box">
+                    <a class="btn btn-full" href="#">Quality Measure</a>
+                </div>
+            </div>  
+            <div class="query-method row js--wp-1">
+                <h3>Choose a query method</h3>
+                <div class="col span-1-of-2 box">
+                    <a class="btn btn-full" href="#">Basic</a>
+                </div>
+                <div class="col span-1-of-2 box">
+                    <a class="btn btn-full" href="#">Advanced</a>
+                </div>
+            </div>
+            <div class = "query-dynamic row --js-wp-1">
+                <div class = "col span-2-of-4 box">
+                    <div data-simplebar data-simplebar-auto-hide="false">
+                        <div class = "query-options">
+                            <div class = "row">
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Techniques</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Tasks</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Enrichment</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Quality Measure</a>
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Techniques</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Tasks</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Enrichment</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Quality Measure</a>
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Techniques</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Tasks</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Enrichment</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Quality Measure</a>
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Techniques</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Tasks</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Enrichment</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Quality Measure</a>
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Techniques</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Tasks</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Enrichment</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Quality Measure</a>
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Techniques</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Tasks</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Enrichment</a>
+                                </div>
+                                <div class="col span-1-of-4 box">
+                                    <a class="btn btn-full" href="#">Quality Measure</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section-meals">
+            <ul class="meals-showcase clearfix">
+                <li>
+                    <figure class="meal-photo">
+                        <img src="resources/img/1.jpg" alt="Korean bibimbap with egg and vegetables">
+                    </figure>
+                </li>
+                <li>
+                    <figure class="meal-photo">
+                        <img src="resources/img/2.jpg" alt="Simple italian pizza with cherry tomatoes">
+                    </figure>
+                </li>
+                <li>
+                    <figure class="meal-photo">
+                        <img src="resources/img/3.jpg" alt="Chicken breast steak with vegetables">
+                    </figure>
+                </li>
+                <li>
+                    <figure class="meal-photo">
+                        <img src="resources/img/4.jpg" alt="Autumn pumpkin soup">
+                    </figure>
+                </li>
+            </ul>
+            <ul class="meals-showcase clearfix">
+                <li>
+                    <figure class="meal-photo">
+                        <img src="resources/img/5.jpg" alt="Paleo beef steak with vegetables">
+                    </figure>
+                </li>
+                <li>
+                    <figure class="meal-photo">
+                        <img src="resources/img/6.jpg" alt="Healthy baguette with egg and vegetables">
+                    </figure>
+                </li>
+                <li>
+                    <figure class="meal-photo">
+                        <img src="resources/img/7.jpg" alt="Burger with cheddar and bacon">
+                    </figure>
+                </li>
+                <li>
+                    <figure class="meal-photo">
+                        <img src="resources/img/8.jpg" alt="Granola with cherries and strawberries">
+                    </figure>
+                </li>
+            </ul>
+        </section>
+        
+        
+        <section class="section-steps" id="works">
+            <div class="row">
+                <h2>How it works &mdash; Simple as 1, 2, 3</h2>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-2 steps-box">
+                    <img src="resources/img/app-iPhone.png" alt="Omnifood app on iPhone" class="app-screen js--wp-2">
+                </div>
+                <div class="col span-1-of-2 steps-box">
+                    <div class="works-step clearfix">
+                        <div>1</div>
+                        <p>Choose the subscription plan that best fits your needs and sign up today.</p>
+                    </div>
+                    <div class="works-step clearfix">
+                        <div>2</div>
+                        <p>Order your delicious meal using our mobile app or website. Or you can even call us!</p>
+                    </div>
+                    <div class="works-step clearfix">
+                        <div>3</div>
+                        <p>Enjoy your meal after less than 20 minutes. See you the next time!</p>
+                    </div>
+                    
+                    <a href="#" class="btn-app"><img src="resources/img/download-app.svg" alt="App Store Button"></a>
+                    <a href="#" class="btn-app"><img src="resources/img/download-app-android.png" alt="Play Store Button"></a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section-cities" id="cities">
+            <div class="row">
+                <h2>We're currently in these cities</h2>
+            </div>
+            <div class="row js--wp-3">
+                <div class="col span-1-of-4 box">
+                    <img src="resources/img/lisbon-3.jpg" alt="Lisbon">
+                    <h3>Lisbon</h3>
+                    <div class="city-feature">
+                        <i class="ion-ios-person icon-small"></i>
+                        1600+ happy eaters
+                    </div>
+                    <div class="city-feature">
+                        <i class="ion-ios-star icon-small"></i>
+                        60+ top chefs
+                    </div>
+                    <div class="city-feature">
+                        <i class="ion-social-twitter icon-small"></i>
+                        <a href="#">@omnifood_lx</a>
+                    </div>
+                </div>
+                <div class="col span-1-of-4 box">
+                    <img src="resources/img/san-francisco.jpg" alt="San Francisco">
+                    <h3>San Francisco</h3>
+                    <div class="city-feature">
+                        <i class="ion-ios-person icon-small"></i>
+                        3700+ happy eaters
+                    </div>
+                    <div class="city-feature">
+                        <i class="ion-ios-star icon-small"></i>
+                        160+ top chefs
+                    </div>
+                    <div class="city-feature">
+                        <i class="ion-social-twitter icon-small"></i>
+                        <a href="#">@omnifood_sf</a>
+                    </div>
+                </div>
+                <div class="col span-1-of-4 box">
+                    <img src="resources/img/berlin.jpg" alt="Berlin">
+                    <h3>Berlin</h3>
+                    <div class="city-feature">
+                        <i class="ion-ios-person icon-small"></i>
+                        2300+ happy eaters
+                    </div>
+                    <div class="city-feature">
+                        <i class="ion-ios-star icon-small"></i>
+                        110+ top chefs
+                    </div>
+                    <div class="city-feature">
+                        <i class="ion-social-twitter icon-small"></i>
+                        <a href="#">@omnifood_berlin</a>
+                    </div>
+                </div>
+                <div class="col span-1-of-4 box">
+                    <img src="resources/img/london.jpg" alt="London">
+                    <h3>London</h3>
+                    <div class="city-feature">
+                        <i class="ion-ios-person icon-small"></i>
+                        1200+ happy eaters
+                    </div>
+                    <div class="city-feature">
+                        <i class="ion-ios-star icon-small"></i>
+                        50+ top chefs
+                    </div>
+                    <div class="city-feature">
+                        <i class="ion-social-twitter icon-small"></i>
+                        <a href="#">@omnifood_london</a>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        
+        <section class="section-testimonials">
+            <div class="row">
+                <h2>Our customers can't live without us</h2>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    <blockquote>
+                        Omnifood is just awesome! I just launched a startup which leaves me with no time for cooking, so Omnifood is a life-saver. Now that I got used to it, I couldn't live without my daily meals!
+                        <cite><img src="resources/img/customer-1.jpg">Alberto Duncan</cite>
+                    </blockquote>
+                </div>
+                <div class="col span-1-of-3">
+                    <blockquote>
+                       Inexpensive, healthy and great-tasting meals, delivered right to my home. We have lots of food delivery here in Lisbon, but no one comes even close to Omifood. Me and my family are so in love!
+                        <cite><img src="resources/img/customer-2.jpg">Joana Silva</cite>
+                    </blockquote>
+                </div>
+                <div class="col span-1-of-3">
+                    <blockquote>
+I was looking for a quick and easy food delivery service in San Franciso. I tried a lot of them and ended up with Omnifood. Best food delivery service in the Bay Area. Keep up the great work!
+                    <cite><img src="resources/img/customer-3.jpg">Milton Chapman</cite>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+        
+        
+        <section class="section-plans js--section-plans" id="plans">
+            <div class="row">
+                <h2>Start eating healthy today</h2>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-3">
+                    <div class="plan-box js--wp-4">
+                        <div>
+                            <h3>Premium</h3>
+                            <p class="plan-price">$399 <span>/ month</span></p>
+                            <p class="plan-price-meal">That's only 13.30$ per meal</p>
+                        </div>
+                        <div>
+                            <ul>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>1 meal every day</li>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>Order 24/7</li>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>Access to newest creations</li>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>Free delivery</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-full">Sign up now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col span-1-of-3">
+                    <div class="plan-box">
+                        <div>
+                            <h3>Pro</h3>
+                            <p class="plan-price">$149 <span>/ month</span></p>
+                            <p class="plan-price-meal">That's only 14.90$ per meal</p>
+                        </div>
+                        <div>
+                            <ul>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>1 meal 10 days/month</li>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>Order 24/7</li>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>Access to newest creations</li>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>Free delivery</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-ghost">Sign up now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col span-1-of-3">
+                    <div class="plan-box">
+                        <div>
+                            <h3>Starter</h3>
+                            <p class="plan-price">19$ <span>/ meal</span></p>
+                            <p class="plan-price-meal">&nbsp;</p>
+                        </div>
+                        <div>
+                            <ul>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>1 meal</li>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>Order from 8 am to 12 pm</li>
+                                <li><i class="ion-ios-close-empty icon-small"></i></li>
+                                <li><i class="ion-ios-checkmark-empty icon-small"></i>Free delivery</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-ghost">Sign up now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section-form">
+            <div class="row">
+                <h2>We're happy to hear from you</h2>
+            </div>
+            <div class="row">
+                <form method="post" action="#" class="contact-form">
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="text" name="name" id="name" placeholder="Your name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="email" name="email" id="email" placeholder="Your email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="find-us">How did you find us?</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <select name="find-us" id="find-us">
+                                <option value="friends" selected>Friends</option>
+                                <option value="search">Search engine</option>
+                                <option value="ad">Advertisement</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>Newsletter?</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="checkbox" name="news" id="news" checked> Yes, please
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>Drop us a line</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <textarea name="message" placeholder="Your message"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>&nbsp;</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="submit" value="Send it!">
+                        </div>
+                    </div>
+                    
+                </form>
+                
+            </div>
+        </section>
+        
+        <footer>
+            <div class="row">
+                <div class="col span-1-of-2">
+                    <ul class="footer-nav">
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">iOS App</a></li>
+                        <li><a href="#">Android App</a></li>
+                    </ul>
+                </div>
+                <div class="col span-1-of-2">
+                    <ul class="social-links">
+                        <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                        <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                        <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+                        <li><a href="#"><i class="ion-social-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <p>
+                    This webpage was created for the course "Design and Develop a Killer Website Using HTML5 and CSS3" by Jonas Schmedtmann. No copyrights here.<br>
+                    This webpage is for you! So go and do whatever you want with it and have fun.
+                </p>
+                <p>
+                    Build with <i class="ion-ios-heart" style="color: #ea0000; padding: 0 3px;"></i> in the beautiful city of Lisbon, Portugal, March 2015.
+                </p>
+            </div>
+        </footer>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+        <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//cdn.jsdelivr.net/selectivizr/1.0.3b/selectivizr.min.js"></script>
+        <script src="vendors/js/jquery.waypoints.min.js"></script>
+        <script src="resources/js/script.js"></script>
+        <script type="text/javascript" src="vendors/js/slick.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+    
+    </body>  
+    
+</html>
