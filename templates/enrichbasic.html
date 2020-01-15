@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load filters %}
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for enrichment_type, enrich_objs in enrichment_info.items %}
+        <p>{{ enrichment_type }}</p>
+        <ul>
+            {% for enrich_obj in enrich_objs %}
+                <button onclick="setTimeout(function(){location.href=generate_url({{ enrich_obj.enrichment_id }});},500);"> {{ enrich_obj.enrichment_name }}</button>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+    <br/>
+    {% if references %}
+    <p>References</p>
+    <ul>
+    {% for reference in references %}
+        <li>{{ reference }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% if enrichment_retd.description %}
+    <p>Description</p>
+    <p>{{ enrichment_retd.description }}</p>
+    {% endif %}
+<script>
+        function generate_url(enrich_id) {
+    var url_path = location.href.split('/')[0] + '/enrichbasic/' + enrich_id.toString();
+    return url_path;
+}
+</script>
+</body>
+</html>

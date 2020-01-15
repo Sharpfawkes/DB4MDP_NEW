@@ -242,7 +242,7 @@ class TaskAdmin(ImportExportModelAdmin):
         ('input_space', 'output_space', 'actor', 'ts', 'task_property'),
         'best_mdp_list',
         ('parent_id', 'child_id', 'numbers'),
-        'reference_list'
+        'reference_list',
         'description'
     ]
     list_display = ('task_name', 'task_type')

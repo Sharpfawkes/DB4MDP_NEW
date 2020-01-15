@@ -17,13 +17,9 @@
     <p>{{ task_fieldnames|indexing:forloop.counter0|indexing:0 }}</p>
     <ul>
     {% for value in values %}
-        <li><button id="{{ value|task_id_gen:key }}" onclick="btn_fn1(this)">{{ value.1 }}</button></li>
+        <li><button id="{{ value|task_id_gen:key }}" onclick="single_select(this, {{ query_strings|indexing:forloop.parentloop.counter0|safe }})">{{ value.1 }}</button></li>
     {% endfor %}
     </ul>
-{% endfor %}
-<p>Range Options</p>
-{% for range_eqn, eqn_id in range_options %}
-    <li><button id="range_eqn{{ eqn_id }}" onclick="single_select(this)">{{ range_eqn }}</button></li>
 {% endfor %}
 
 <button onclick="generate();setTimeout(function(){location.href=generate();},500);">Submit</button>
@@ -31,7 +27,7 @@
 <p>Quality Measures that satisfy the above criteria are as follows: </p>
 <ul>
     {% for result in results %}
-        <li><a href = "/qmbasic/{{ result.measure_id }}">{{ result.measure_name }}</a></li>
+        <li><a href = "/taskbasic/{{ result.task_id }}">{{ result.task_name }}</a></li>
     {% endfor %}
 {% endif %}
 </ul>
@@ -43,25 +39,29 @@
 <script>
 {#This function will make sure that only one of the range options is selected by iterating through all the range_options#}
 {#within the option set and resetting their values except for the value of the clicked button.#}
-function single_select(elem){
+function single_select(elem, option_set){
     var button_temp;
-    {% for option_id in range_strings %}
-        if (elem.id != "{{ option_id }}") {
-            button_temp = document.getElementById("{{option_id}}");
+    var option_id;
+    var index;
+    console.log(option_set)
+    for (index = 0; index < option_set.length; index++) {
+        option_id = option_set[index];
+        console.log(option_id);
+        if (elem.id != option_id) {
+            button_temp = document.getElementById(option_id);
             console.log(button_temp);
             button_temp.style.backgroundColor = "#cecece";
             button_temp.value = 0;
         } else {
-            if (elem.value == 0){
+            if (elem.value == 0) {
                 elem.value = 1;
                 elem.style.backgroundColor = "#f44336";
-        }
-            else{
+            } else {
                 elem.value = 0;
                 elem.style.backgroundColor = "#cecece";
             }
         }
-    {% endfor %}
+    }
 }
 /* Setting the initial value of the All and Include buttons so that they appear to be chosen by default */
 $(document).ready(function() {
@@ -131,26 +131,17 @@ function generate(el) {
     url_path = location.href.split('?')[0] + "?";
     console.log(url_path);
 
-    {% for _, value in qm_fieldnames.items %}
-        {% for elem_id in value %}
-            {#Have to do this otherwise I get element document.getElementbyId null error while trying to get the rangee #}
-            {#button since it doesn't exist#}
-            {% if elem_id != "rangee" %}
-            if (document.getElementById("{{ elem_id }}").value == 1) {
-            url_path += "{{ elem_id }}=Yes&";
+    {% for id_sets in query_strings %}
+        {% for elem_id in id_sets %}
+                if (document.getElementById("{{ elem_id|safe }}").value == 1) {
+            url_path += "{{ elem_id|safe }}=Yes&";
     }
-            {% endif %}
         {% endfor %}
     {% endfor %}
     {% for elem_id in filter_options %}
     if (document.getElementById("{{ elem_id }}").value == 1) {
         url_path += "{{ elem_id }}=Yes&";
     }
-    {% endfor %}
-{% for range_eqn, eqn_id in range_options %}
-    if (document.getElementById("range_eqn{{ eqn_id }}").value == 1) {
-                url_path += "range_eqn{{ eqn_id }}=Yes&";
-        }
     {% endfor %}
 
     //console.log(url_path);

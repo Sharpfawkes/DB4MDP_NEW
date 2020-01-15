@@ -1,71 +1,74 @@
 {% load static %}
-{% load mdp_filters %}
+{% load filters %}
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>{% block title%}{% endblock %}</title>
+    <title>QCRI | DB4MDP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-    <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css'>
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-    <link rel="stylesheet" href="{% static 'css/stylermain118.css' %}" />
-    <link rel='stylesheet' href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <script type="text/javascript" src="{% static 'js/script8.js' %}"></script>
-    <!--<script src="https://kit.fontawesome.com/d2154e0601.js"></script>-->
-    <script>
-        $("td:last").css({ border- right: "0px"});
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+    <!-- Used for setting up the fluid grid -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/grid.css' %}">
+    <!-- Used for putting ions onto the page -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+    <!-- For the introduction Carousel -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/queries.css' %}">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"/>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous">
     </script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-        CommonHTML: {
-        scale: 190
-        }
-        });
-    </script>
-    <script type="text/javascript" async
-            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
+    <script type="text/javascript" src="{% static 'js/dyn_script.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+    <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.jsdelivr.net/selectivizr/1.0.3b/selectivizr.min.js"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
 <body>
-    <div class="l-site">
-        <div class="l-nav">
-            <nav class="nav">
-                <ul>
-                    <li><img src='{% static "qcri.png" %}'></li>
-                    <li class="nav-primary"><a href="/mdp/">Home</a></li>
-                    <li class="nav-primary"><a href="/mdp-basic/0/">Techniques</a></li>
-                    <li class="nav-primary"><a href="/tasks-basic/0/">Tasks</a></li>
-                    <li class="nav-primary"><a href="/quality-basic/0/">Quality Measure</a></li>
-                    <li class="nav-primary"><a href="/enrich-basic/0/">Enrichment</a></li>
-                    <li class="nav-secondary"><a href="/about/">About</a></li>
-                    <li class="nav-secondary"><a href="/contact/">Contact</a></li>
+    <header>
+        <nav>
+            <div class="row">
+                <img src="{% static 'img/logo-white.png' %}" alt="QCRI Logo" class="logo">
+                <!-- <img src="resources/img/logo.png" alt="QCRI Logo" class="logo-black"> -->
+                <ul class="main-nav js--main-nav">
+                    <li><a href="#intro">Resource</a></li>
+                    <li><a href="#query">Search</a></li>
+                    <li><a href="#team">About</a></li>
+                    <!-- <li><a href="#plans">Sign up</a></li> -->
                 </ul>
-            </nav>
+                <a class="mobile-nav-icon js--nav-icon"><i class="ion-navicon-round"></i></a>
+            </div>
+        </nav>
+        <div class="hero-text-box">
+            <h1>Multidimensional Projection for Visual Analytics</h1>
         </div>
-        <div class="l-page">
-            <section class="band band-a">
-                <div class="head-band-container">
-                    <div class="head-band-inner">
-                        <h1>Multidimensional Projections for Visual Analytics</h1>
-                    </div>
-                </div>
-            </section>
-            <section class="band band-b">
-                <div class="band-container">
-                    <div class="band-inner">
-                        {% block content1 %}{% endblock %}
-                    </div>
-                </div>
-            </section>
-            <section class="band band-c">
-                <div class="band-container">
-                    <div class="band-inner">
-                        {% block content2 %}{% endblock %}
-                    </div>
-                </div>
-            </section>
+        <section id = "introduction">
+        <div class="long-copy slick-intro">
+            <div>
+                Visual analysis of multidimensional data requires expressive and effective ways to reduce data dimensionality to encode them visually. Multidimensional projections (MDP) figure among the most important visualization techniques in this context, transforming multidimensional data into scatter plots whose visual patterns reflect some notion of similarity in the original data. However, MDP come with distortions that make these visual patterns not trustworthy, hindering users to infer actual data characteristics. Moreover, the patterns present in the scatter plots might not be enough to allow a clear understanding of multidimensional data, motivating the development of layout enrichment methodologies to operate together with MDP.
+            </div>
+            <div>
+                This survey attempts to cover the main aspects of MDP as a visualization and visual analytic tool. It provides detailed analysis and taxonomies as to the organization of MDP techniques according to their main properties and traits, discussing the impact of such properties for visual perception and other human factors. The survey also approaches the different types of distortions that can result from MDP mappings and it overviews existing mechanisms to quantitatively evaluate such distortions.
+            </div>
+            <div>
+                A qualitative analysis of the impact of distortions on the different analytic tasks performed by users when exploring multidimensional data through MDP is also presented. Guidelines for choosing the best MDP for an intended task are also provided as a result of this analysis. Finally, layout enrichment schemes to debunk MDP distortions and/or reveal relevant information not directly inferable from the scatter plot are reviewed and discussed in the light of new taxonomies.<br/>
+                We conclude the survey providing future research axes to fill discovered gaps in this domain.
+            </div>
         </div>
-    </div>
+    </section>
+    </header>
 </body>
 </html>

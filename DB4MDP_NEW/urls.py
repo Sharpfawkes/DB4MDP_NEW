@@ -30,5 +30,6 @@ urlpatterns = [
     re_path(r'mdpadvd/$', views.mdpadvanced),
     re_path(r'qmadvd/$', views.qmadvanced),
     re_path(r'taskadvd/$', views.taskadvanced),
+    path('enrichbasic/<int:pk>', views.enrichbasic),
 
 ]

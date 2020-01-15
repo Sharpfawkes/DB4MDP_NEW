@@ -1,15 +1,22 @@
 from django.shortcuts import render
 from django.forms.models import model_to_dict
 from .models import *
-from django.db.models import Q
+from django.db.models import Q, Count
 
 # Allow to filter horizontal ie search bar for references in admin
 # Allow to clear options for range section and also for tasks input/output space
+# The single_select option only needs to be there when All is selected. For any, multi-select should be allowed.
+# Task when displaying results in the advanced section, should the children be left out?
+# When reloading the page after a query, don't reset the state of the buttons. I think this should be taken care of
+# by an AJAX request though.
+
+# Have a clear all selected options button. Just have a div within which all the options are present.
+# Find all elements that are buttons within that div and reset their state.
 # Tables
 # QM - Done both Basic and Advanced
 # Langs - Both MDPs and Langs done
+# Task - Done both Basic and Advanced
 # MDP - Done but have to make get changes to basic
-# Task - Only done basic
 # Enrichment - Not started
 
 # Things to check with Dr. Michael
@@ -47,6 +54,7 @@ from django.db.models import Q
 # https://stackoverflow.com/questions/20952156/how-to-pass-javascript-variable-to-django-custom-filter
 # https://stackoverflow.com/questions/47648886/difference-between-strdict-and-json-dumpsdict
 # https://stackoverflow.com/questions/1413122/is-autoescape-off-in-django-safe
+# https://stackoverflow.com/questions/45163299/django-group-by-field-value
 
 data_type_fieldnames = ['dissimilarity_id', 'ordinal_id', 'cartesian_id', 'ne_structures_id', 'categorical_id']
 tax_fieldnames = ['linearity_id', 'supervision_id', 'multi_level_id', 'locality_id', 'steerability_id',
@@ -135,7 +143,8 @@ def mdpbasic(request, pk):
                    "text_tax": txtdisp_tax, "tax_vals": tax_vals,
                    "complexity": complexity, "reference": reference,
                    "varrefno": variant_ref_nos, "tech_variants": tech_variants,
-                   "description": description}
+                   "description": description,
+                   "reroute_string": "mdpbasic"}
                   )
 
 
@@ -165,7 +174,8 @@ def qmbasic(request, pk):
                    "parameter_text": parameter_text,
                    "field_vals": field_vals,
                    "references": references,
-                   "description": description
+                   "description": description,
+                   "reroute_string": "qmbasic"
                    }
                   )
 
@@ -197,7 +207,8 @@ def taskbasic(request, pk):
     return render(request, 'taskbasic.html',
                   {"task_list": data, "task_fields": task_fields,
                    "task_retd": task_retd, "reference": reference, "children": children, "parent_obj": parent_obj,
-                   "numbers": numbers, "description": description
+                   "numbers": numbers, "description": description,
+                   "reroute_string": "taskbasic"
                    }
                   )
 
@@ -227,7 +238,7 @@ def lang_mdps(request, pk):
     return render(request, 'lang_mdps.html',
                   {"methods_list": data, "description": description,
                    "language_data": language_data, "references": references,
-
+                   "reroute_string": "lang_mdps"
                    }
                   )
 
@@ -416,7 +427,7 @@ def taskadvanced(request):
     query_sets = []
     option_set = []
     operator = get_operator(request)
-    trivial_strings = list(task_fieldoptions.values())
+    trivial_strings = list(task_fieldoptions.keys())
     index = 0
     for _, field_name in task_fieldnames:
         reg_queries, options = reg_query_generator_fn(request, regquery_strings[index],
@@ -470,5 +481,26 @@ def lang_langs(request, pk):
     return render(request, 'lang_langs.html',
                   {"language_list": data, "description": description,
                    "toolboxes_suppd": toolboxes_suppd, "mdps_handled": mdps_handled,
+                   "reroute_string": "lang_langs"
                    }
                   )
+
+def enrichbasic(request, pk):
+    type_objects = EnrichmentType.objects.all()
+    enrich_objects = Enrichment.objects.all()
+    type_strings = list(type_objects.values_list('type_name', flat=True))
+    enrich_dict = {}
+    for index in range(len(type_strings)):
+        type_name = type_strings[index]
+        type_object = type_objects[index]
+        enrich_dict[type_name] = Enrichment.objects.filter(enrichment_type=type_object)
+    enrichment_retd = Enrichment.objects.get(enrichment_id=pk)
+    references = enrichment_retd.references.all()
+    return render(request, 'enrichbasic.html',
+                  {'enrichment_info': enrich_dict,
+                   "enrichment_retd": enrichment_retd,
+                   "references": references
+                   }
+                  )
+
+
