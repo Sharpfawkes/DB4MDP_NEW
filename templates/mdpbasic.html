@@ -1,60 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout/layout.html' %}
+{#Make it so that the full name is rendered within a span but that span display is hidden. So it will still work to filter#}
+{#the method by its full name but it just won't make it look ugly by displaying the full name.#}
 {% load filters %}
-<head>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block content %}
     {% for mdp in mdp_list %}
-        <button onclick="setTimeout(function(){location.href=generate_url({{ mdp.mdp_id }});},500);"> {{ mdp.mdp_name }}</button>
+        <button class="button" onclick="setTimeout(function(){location.href=generate_url({{ mdp.mdp_id }});},500);">
+            {{ mdp.mdp_name }}
+        </button>
     {% endfor %}
     <br/>
-    {{ projtechname.0 }} - ( {{ projtechname.1 }} )
-    <p>Data Types</p>
-    <ul>
-    {% for handling_capacity in data_type_vals %}
-        {% if handling_capacity != None %}
-            <li> {{ text_display|indexing:forloop.counter0}}: {{ handling_text|indexing:handling_capacity }}</li>
-        {% endif %}
-    {% endfor %}
-    </ul>
-    <p>Taxonomy</p>
-    <ul>
-    {% for handling_capacity in tax_vals %}
-        {% if handling_capacity != None %}
-            <li> {{ text_tax|indexing:forloop.counter0}}: {{ handling_text|indexing:handling_capacity }}</li>
-        {% endif %}
-    {% endfor %}
-    </ul>
-    <p>Complexity<br/>
-        {{ complexity }}
-    </p>
-    <p>Reference Paper<br/>
-        {{ reference }}
-    </p>
-    {% if varrefno %}
-    <p>See these references for variants: </p>
-    <ul>
-    {% for varref in varrefno %}
-        <li>{{varref}}</li>
-    {% endfor %}
-    </ul>
-    {% endif %}
-    {% if tech_variants %}
-    <p>Technique Variants</p>
-    <ul>
-        {% for tech_variant in tech_variants %}
-        <li>{{ tech_variant.0 }} - {{ tech_variant.1}}</li>
+    {% if got_item %}
+        {{ projtechname.0 }} - ( {{ projtechname.1 }} )
+
+        <p>Data Types</p>
+        <ul>
+        {% for handling_capacity in data_type_vals %}
+            {% if handling_capacity != None %}
+                <li> {{ text_display|indexing:forloop.counter0}}: {{ handling_text|indexing:handling_capacity }}</li>
+            {% endif %}
         {% endfor %}
-    </ul>
-    {% endif %}
-    {% if description %}
-    <p>Description<br/>
-    {{ description }}
-    </p>
+        </ul>
+        <p>Taxonomy</p>
+        <ul>
+        {% for handling_capacity in tax_vals %}
+            {% if handling_capacity != None %}
+                <li> {{ text_tax|indexing:forloop.counter0}}: {{ handling_text|indexing:handling_capacity }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+        <p>Complexity<br/>
+            {{ complexity }}
+        </p>
+        <p>Reference Paper<br/>
+            {{ reference }}
+        </p>
+        {% if varrefno %}
+        <p>See these references for variants: </p>
+        <ul>
+        {% for varref in varrefno %}
+            <li>{{varref}}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% if tech_variants %}
+        <p>Technique Variants</p>
+        <ul>
+            {% for tech_variant in tech_variants %}
+            <li>{{ tech_variant.0 }} - {{ tech_variant.1}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if description %}
+        <p>Description<br/>
+        {{ description }}
+        </p>
+        {% endif %}
     {% endif %}
 <script>
         function generate_url(mdp_id) {
@@ -62,6 +62,4 @@
     return url_path;
 }
 </script>
-
-</body>
-</html>
+{% endblock %}

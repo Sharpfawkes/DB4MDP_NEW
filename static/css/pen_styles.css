@@ -1,0 +1,342 @@
+* { box-sizing: border-box;
+font-family: 'Lato';}
+
+body {
+  font-family: 'Lato';
+}
+
+/* Preventing mathjax elements from having margins around them.
+I'll make the elements that contain the mathjax equations have padding wherever necessary */
+mjx-container[jax="CHTML"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 0 0 !important;
+}
+
+
+
+/* ---- list styling ---- */
+/* https://codepen.io/erinesullivan/pen/qGrdGV */
+
+*:before,
+*:after {
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
+main {
+  display: block;
+  margin: 0 auto;
+  max-width: 40rem;
+  padding: 1rem;
+}
+ol.gradient-list > li, ol.gradient-list > li::before {
+  box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+}
+ol.gradient-list {
+  counter-reset: gradient-counter;
+  list-style: none;
+  margin: 1.75rem 0;
+  padding-left: 1rem;
+}
+ol.gradient-list > li {
+  background: white;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  counter-increment: gradient-counter;
+  margin-top: 1rem;
+  min-height: 3rem;
+  padding: 1rem 1rem 1rem 3rem;
+  position: relative;
+}
+ol.gradient-list > li::before, ol.gradient-list > li::after {
+  background: linear-gradient(135deg, #83e4e2 0%, #a2ed56 100%);
+  border-radius: 1rem 1rem 0 1rem;
+  content: '';
+  height: 3rem;
+  left: -1rem;
+  overflow: hidden;
+  position: absolute;
+  top: -1rem;
+  width: 3rem;
+}
+ol.gradient-list > li::before {
+  align-items: flex-end;
+  content: counter(gradient-counter);
+  color: #1d1f20;
+  display: flex;
+  font: 900 1.5em/1 'Montserrat';
+  justify-content: flex-end;
+  padding: 0.125em 0.25em;
+  z-index: 1;
+}
+
+ol.gradient-list > li::before {
+  background: linear-gradient(150deg, rgba(211, 84, 0, 1.0) 0%, rgba(255,196,15, 0.8) 100%);
+}
+ol.gradient-list > li + li {
+  margin-top: 2rem;
+}
+
+/* ---- fancy heading ---- */
+h1.fancy {
+    margin: 30px 0;
+    position: relative;
+    color: whitesmoke;
+    font-weight: 300;
+}
+
+h1.fancy:before,
+h1.fancy:after {
+	content: '[';
+	display: inline-block;
+	position: relative;
+	top: 1px;
+	height: 100%;
+	font-size: 1.25em;
+	color: tomato;
+
+	transition: all 0.5s ease;
+}
+
+h1.fancy:after { content: ']'; }
+
+h1.fancy:hover:before {
+	transform: translateX(-10px);
+}
+
+h1.fancy:hover:after {
+	transform: translateX(10px);
+}
+
+.fa-search{
+    font-size: 2px;
+}
+
+/* ---- from daily-ui css */
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+input[type="text"] {
+  box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.4);
+  background: #ffffff;
+  border: 2px solid #e67e22;
+  outline: none;
+  width: 250px;
+  height: 40px;
+  border-radius: 15px 0 0 15px;
+  font-size: 1.3em;
+  font-weight: 300;
+  padding: 0px 10px;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 1px;
+  color: #000;
+}
+
+::placeholder {
+  color: #777;
+  font-size: .8em;
+}
+
+.search-btn {
+  box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.4);
+  height: 40px;
+  width: 55px;
+  outline: none;
+  border-radius: 0 15px 15px 0;
+  background: #e7693b;
+  color: #ffffff;
+  border: none;
+  transition: all 0.3s ease;
+}
+.search-btn:hover {
+  transition: all 0.3s ease;
+}
+.search-btn:hover i {
+  font-size: 2em;
+}
+.search-btn i {
+  font-size: 1.8em;
+  padding: 0 2px 0 0;
+}
+
+/* ---- from fancy-buttons.css */
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon/icomoon.eot');
+	src:url('../fonts/icomoon/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon/icomoon.woff') format('woff'),
+		url('../fonts/icomoon/icomoon.ttf') format('truetype'),
+		url('../fonts/icomoon/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.button {
+    border-radius: 10%;
+	border: none;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	background: none;
+	cursor: pointer;
+	padding: 1% 1%;
+	display: inline-block;
+	margin: 5px 5px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.button:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.button:before {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Button */
+.button {
+	border: 3px solid #e67e22;
+	color: #e67e22;
+}
+
+/* Button */
+.button:hover,
+.button:active {
+	color: #fff;
+	background: #e67e22;
+}
+
+/* ---- button ---- */
+
+.button:active,
+.button.is-checked {
+  background-color: #e67e22;
+}
+
+.button.is-checked {
+  color: white;
+  text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+}
+
+.button:hover,
+.button:active {
+  box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+}
+
+/* ---- button-group ---- */
+
+.button-group:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.button-group .button {
+  float: left;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0.4em;
+}
+
+.button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+.button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+/* ---- grid ---- */
+
+/*.grid {*/
+/*  border: 1px solid #333;*/
+/*    !*overflow: hidden;*!*/
+/*}*/
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .element-item ---- */
+
+.element-item {
+  position: relative;
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  padding: 10px;
+  background: #888;
+  color: #262524;
+}
+
+.element-item > * {
+  margin: 0;
+  padding: 0;
+}
+
+.element-item .name {
+  position: absolute;
+
+  left: 10px;
+  top: 60px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.element-item .symbol {
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 42px;
+  font-weight: bold;
+  color: white;
+}
+
+.element-item .number {
+  position: absolute;
+  right: 8px;
+  top: 5px;
+}
+
+.element-item .weight {
+  position: absolute;
+  left: 10px;
+  top: 76px;
+  font-size: 12px;
+}
+
+.element-item.alkali          { background: #F00; background: hsl(   0, 100%, 50%); }
+.element-item.alkaline-earth  { background: #F80; background: hsl(  36, 100%, 50%); }
+.element-item.lanthanoid      { background: #FF0; background: hsl(  72, 100%, 50%); }
+.element-item.actinoid        { background: #0F0; background: hsl( 108, 100%, 50%); }
+.element-item.transition      { background: #0F8; background: hsl( 144, 100%, 50%); }
+.element-item.post-transition { background: #0FF; background: hsl( 180, 100%, 50%); }
+.element-item.metalloid       { background: #08F; background: hsl( 216, 100%, 50%); }
+.element-item.diatomic        { background: #00F; background: hsl( 252, 100%, 50%); }
+.element-item.halogen         { background: #F0F; background: hsl( 288, 100%, 50%); }
+.element-item.noble-gas       { background: #F08; background: hsl( 324, 100%, 50%); }

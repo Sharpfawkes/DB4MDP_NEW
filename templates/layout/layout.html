@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>QCRI | DB4MDP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
     <!-- Used for setting up the fluid grid -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/grid.css' %}">
@@ -17,43 +17,29 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pen_styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/queries.css' %}">
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"/>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script
-			  src="https://code.jquery.com/jquery-3.4.1.min.js"
-			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			  crossorigin="anonymous">
-    </script>
-    <script type="text/javascript" src="{% static 'js/dyn_script.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
-    <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="//cdn.jsdelivr.net/selectivizr/1.0.3b/selectivizr.min.js"></script>
-    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'js/script.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
 </head>
 <body>
     <header>
         <nav>
-            <div class="row">
+            <div class="nav-bar row">
                 <img src="{% static 'img/logo-white.png' %}" alt="QCRI Logo" class="logo">
                 <!-- <img src="resources/img/logo.png" alt="QCRI Logo" class="logo-black"> -->
                 <ul class="main-nav js--main-nav">
-                    <li><a href="#intro">Resource</a></li>
-                    <li><a href="#query">Search</a></li>
+                    <li><a href="/">Resource</a></li>
+                    <li><a href="#search-options">Search</a></li>
                     <li><a href="#team">About</a></li>
-                    <!-- <li><a href="#plans">Sign up</a></li> -->
                 </ul>
                 <a class="mobile-nav-icon js--nav-icon"><i class="ion-navicon-round"></i></a>
             </div>
         </nav>
         <div class="hero-text-box">
-            <h1>Multidimensional Projection for Visual Analytics</h1>
+            <h1>Multidimensional Projections for Visual Analytics</h1>
         </div>
         <section id = "introduction">
         <div class="long-copy slick-intro">
@@ -70,5 +56,40 @@
         </div>
     </section>
     </header>
+    <section id="search-options">
+    {% block content %}
+    {% endblock %}
+    </section>
+{#            <div class="query-method row js--wp-1">#}
+{#                <h3>Choose a query method</h3>#}
+{#                <div class="col span-1-of-2 box">#}
+{#                    <a class="btn btn-full" id="basic" href="#">Basic</a>#}
+{#                </div>#}
+{#                <div class="col span-1-of-2 box">#}
+{#                    <a class="btn btn-full" id="advd" href="#">Advanced</a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="js--wp-1">#}
+{#                <a class="btn btn-full" id="submit-main" href="#">Submit</a>#}
+{#            </div>#}
+{#        </div>#}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+          src="https://code.jquery.com/jquery-3.4.1.min.js"
+          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+          crossorigin="anonymous">
+</script>
+{#    <script type="text/javascript" src="{% static 'js/dyn_script.js' %}"></script>#}
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
+{#    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>#}
+<script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+<script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="//cdn.jsdelivr.net/selectivizr/1.0.3b/selectivizr.min.js"></script>
+<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'js/pen_script.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
+{#    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>#}
 </body>
 </html>

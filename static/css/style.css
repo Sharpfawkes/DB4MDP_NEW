@@ -8,6 +8,23 @@ Orange color: #e67e22
 /* BASIC SETUP */
 /* ----------------------------------------------- */
 
+/*.nav-bar{*/
+/*    height: 50px;*/
+/*}*/
+
+/*body{*/
+/*    overflow: hidden;*/
+/*}*/
+
+#submit-main{
+    width: 20%;
+    margin: 0 40%;
+}
+
+#search-options{
+    padding: 60px 20px 0 20px;
+}
+
 .query-options{
     width: 50%;
     margin: auto;
@@ -39,11 +56,16 @@ Orange color: #e67e22
     width: 50%;
 }
 
+.row .span-1-of-3{
+    width: 33.33%;
+}
+
+
 .query-method{
     width: 50%;
 }
 
-.query-method, .query-options h3{
+.query-method, .query-options, .section-features h3{
     width: 100%;
     text-align: center;
 }
@@ -51,7 +73,7 @@ Orange color: #e67e22
 .section-features  .btn, h2{
     width: 100%;
     text-align: center;
-    font-weight: 50px;
+    font-weight: 100;
 }
 
 * {
@@ -130,11 +152,11 @@ h3 {
 
 h1 {
     text-align: center;
-    margin-top: 0;
+    margin-top: 10px;
     margin-bottom: 20px;
     color: #fff;
     /* Make sure that all of the sizes are in % so that they will scale well for different viewport sizes. The % inherits the base value from the parent i.e. the html rule */
-    font-size: 240%;
+    font-size: 200%;
     word-spacing: 4px;
     letter-spacing: 1px;
 }
@@ -143,7 +165,7 @@ h2 {
     font-size: 180%;
     word-spacing: 2px;
     text-align: center;
-    margin-bottom: 30px;
+    margin: 30px 0;
     letter-spacing: 1px;
 }
 
@@ -243,7 +265,7 @@ input[type=submit] {
 input[type=submit] {
     /* Can be selected using FlatUIColors website */
     background-color: #e67e22;
-    border: 1px solid #e67e22;
+    border: 2px solid #e67e22;
     color: #fff;
     margin-right: 15px;
 }
@@ -263,7 +285,9 @@ input[type=submit]:active {
 
 .btn-full:hover,
 .btn-full:active {
-    border: 1px solid #cf6d17;
+    border: 2px solid #cf6d17;
+    background-color: #fff;
+    color: #cf6d17;
 }
 
 .btn-ghost:hover,
@@ -277,17 +301,32 @@ input[type=submit]:active {
 /* HEADER */
 /* ----------------------------------------------- */
 
-header {
-    /* comma separated background images are equivalent to putting 2 background images one of top of the other. So the gradient is layered on the desired image for contrast */
-    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hero.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hero.jpg);
+header, #search-options {
     /* We want the full image to be seen so the image is scaled down as necessary to fit the viewport even if the viewport is resized */
     background-size: cover;
     /* position the image in the center */
     background-position: center;
-    height: 100vh; /* 100% of the 
+    height: 100vh; /* 100% of the
     viewport height */
     background-attachment: fixed;
+}
+
+#search-options{
+    height: 200vh;
+}
+
+header{
+    /* comma separated background images are equivalent to putting 2 background images one of top of the other. So the gradient is layered on the desired image for contrast */
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/img/hero.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/img/hero.jpg');
+}
+
+#search-options{
+    /* comma separated background images are equivalent to putting 2 background images one of top of the other. So the gradient is layered on the desired image for contrast */
+    /*max-height: 100vh;*/
+    /*height: auto;*/
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/img/query.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/img/query.jpg');
 }
 
 header .long-copy{
@@ -373,6 +412,7 @@ header .long-copy{
     top: 0;
     left: 0;
     width: 100%;
+    height: 50px;
     background-color: rgba(255, 255, 255, 0.98);
     box-shadow: 0 2px 2px #efefef;
     z-index: 9999;
@@ -382,7 +422,7 @@ header .long-copy{
 
 .sticky .main-nav li a:link,
 .sticky .main-nav li a:visited {
-    padding: 16px 0;
+    padding: 7px 0;
     color: #555;
 }
 

@@ -21,8 +21,8 @@ import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include(debug_toolbar.urls)),
-    re_path(r'mdpbasic/$', views.mdpbasic),
-    path('mdpbasic/<int:pk>', views.mdpbasic),
+    path('intro', views.do_nothing),
+    re_path(r'mdpbasic/(?P<pk>\d+)$', views.mdpbasic),
     path('qmbasic/<int:pk>', views.qmbasic),
     path('taskbasic/<int:pk>', views.taskbasic),
     path('lang_mdps/<int:pk>', views.lang_mdps),

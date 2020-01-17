@@ -25,6 +25,9 @@ SECRET_KEY = 'n)2e%(gfk4%9!2xq9zt$tbr7_crsk_lo6k^g*71q)9%-u=mopf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# import mimetypes
+# mimetypes.add_type("text/css", ".css", True)
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -159,14 +162,15 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 # For dev server. Otherwise static files wont update
-STATIC_URL = '/home/sharpfawkes/PycharmProjects/DB4MDP_NEW/static/'
-STATIC_ROOT = '/home/sharpfawkes/PycharmProjects/DB4MDP_NEW/static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = '/home/sharpfawkes/PycharmProjects/DB4MDP_NEW/staticfiles/'
 
 # This list contains directories of where django will seach for additional static files other than static_root
 # since we don't have any other static folders, I'm leaving it blank
 STATICFILES_DIRS = [
-
+    os.path.join(BASE_DIR, 'static'),
 ]
+
 
 # For production
 

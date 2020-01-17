@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.forms.models import model_to_dict
 from .models import *
 from django.db.models import Q, Count
+from django.core.exceptions import ObjectDoesNotExist
 
 # Allow to filter horizontal ie search bar for references in admin
 # Allow to clear options for range section and also for tasks input/output space
@@ -55,6 +56,7 @@ from django.db.models import Q, Count
 # https://stackoverflow.com/questions/47648886/difference-between-strdict-and-json-dumpsdict
 # https://stackoverflow.com/questions/1413122/is-autoescape-off-in-django-safe
 # https://stackoverflow.com/questions/45163299/django-group-by-field-value
+# https://stackoverflow.com/questions/12809416/django-static-files-404
 
 data_type_fieldnames = ['dissimilarity_id', 'ordinal_id', 'cartesian_id', 'ne_structures_id', 'categorical_id']
 tax_fieldnames = ['linearity_id', 'supervision_id', 'multi_level_id', 'locality_id', 'steerability_id',
@@ -94,7 +96,7 @@ def getvalues(queryset, fieldnames):
     return data
 
 
-def mdpbasic(request, pk):
+def mdpbasic(request, pk=None):
     # batch_size = 3  # Change to change the number of boxes displayed per row on the basic page.
     data = MDP.objects.values('mdp_name', 'mdp_id').order_by('mdp_id')
     # Will contain a dictionary of the handling ability id and the text mapped to that id. So that I don't have to
@@ -104,48 +106,55 @@ def mdpbasic(request, pk):
         handling_text[c.id] = c.technique_handling_ability
     # using get will return the verbose name of the object retrieved. In order to access the individual attributes,
     # we can either use the dot operator or python's getattr function
-    projection_technique = MDP.objects.get(mdp_id=pk)
-    # No need to use filter here because we will only be retrieving one item
-    complexity = (MathJaxFormulas.objects.get(id=projection_technique.complexity_id)).mathjaxeqn
-    datatype_vals = getvalues(projection_technique, data_type_fieldnames)
-    tax_vals = getvalues(projection_technique, tax_fieldnames)
-    projtech_name = getvalues(projection_technique, projtech_fieldname)
-    # print(datatype_vals)
-    # datatype_vals = (list(projection_technique.values_list('dissimilarity_id', 'ordinal_id', 'cartesian_id',
-    #                                                       'ne_structures_id', 'categorical_id'
-    #                                                       )
-    #                      )
-    #                 )[0]
-    reference = projection_technique.reference_paper.citation
-    print(projection_technique.variant_refs.all())
-    # These numbers are those that don't have a projection technique associated wiht them in the paper
-    variant_ref_nos = projection_technique.variant_refs.all()
-    # These are those that have a name associated with them ex: iPCA
-    # Till .all() will return a set of objects from the variants table and then we retrieve only the
-    # variant_name and variant_references attributes in a queryset.
-    # need to typecast the tuples into a list so that i can modify them later on. That's why list(i)
-    tech_variants = [list(i) for i in
-                     list(projection_technique.tech_variants.all().values_list('variant_name', 'variant_reference'))]
-    variant_refs = [variant_ref for (_, variant_ref) in tech_variants]
-    # This will give us the __str__ of the object which will have both the id as well as the citation text
-    ref_vals = Reference.objects.filter(id__in=variant_refs)
-    for tech_variant in tech_variants:
-        for ref_val in ref_vals:
-            if tech_variant[1] == ref_val.id:
-                tech_variant[1] = ref_val
-    description = projection_technique.description
-    # print(tech_variants, ref_vals)
+    try:
+        projection_technique = MDP.objects.get(mdp_id=pk)
+        # No need to use filter here because we will only be retrieving one item
+        complexity = (MathJaxFormulas.objects.get(id=projection_technique.complexity_id)).mathjaxeqn
+        datatype_vals = getvalues(projection_technique, data_type_fieldnames)
+        tax_vals = getvalues(projection_technique, tax_fieldnames)
+        projtech_name = getvalues(projection_technique, projtech_fieldname)
+        # print(datatype_vals)
+        # datatype_vals = (list(projection_technique.values_list('dissimilarity_id', 'ordinal_id', 'cartesian_id',
+        #                                                       'ne_structures_id', 'categorical_id'
+        #                                                       )
+        #                      )
+        #                 )[0]
+        reference = projection_technique.reference_paper
+        print(projection_technique.variant_refs.all())
+        # These numbers are those that don't have a projection technique associated wiht them in the paper
+        variant_ref_nos = projection_technique.variant_refs.all()
+        # These are those that have a name associated with them ex: iPCA
+        # Till .all() will return a set of objects from the variants table and then we retrieve only the
+        # variant_name and variant_references attributes in a queryset.
+        # need to typecast the tuples into a list so that i can modify them later on. That's why list(i)
+        tech_variants = [list(i) for i in
+                         list(projection_technique.tech_variants.all().values_list('variant_name', 'variant_reference'))]
+        variant_refs = [variant_ref for (_, variant_ref) in tech_variants]
+        # This will give us the __str__ of the object which will have both the id as well as the citation text
+        ref_vals = Reference.objects.filter(id__in=variant_refs)
+        for tech_variant in tech_variants:
+            for ref_val in ref_vals:
+                if tech_variant[1] == ref_val.id:
+                    tech_variant[1] = ref_val
+        description = projection_technique.description
+        # print(tech_variants, ref_vals)
+        return render(request, 'mdpbasictemp.html',
+                      {"mdp_list": data, "projtechname": projtech_name,
+                       "handling_text": handling_text,
+                       "text_display": txtdisp_data, "data_type_vals": datatype_vals,
+                       "text_tax": txtdisp_tax, "tax_vals": tax_vals,
+                       "complexity": complexity, "reference": reference,
+                       "varrefno": variant_ref_nos, "tech_variants": tech_variants,
+                       "description": description,
+                       "reroute_string": "mdpbasic",
+                       'got_item': True}
+                      )
+    except ObjectDoesNotExist:
+        return render(request, 'mdpbasic.html',
+                      {'mdp_list': data, 'got_item': False}
+                      )
 
-    return render(request, 'mdpbasic.html',
-                  {"mdp_list": data, "projtechname": projtech_name,
-                   "handling_text": handling_text,
-                   "text_display": txtdisp_data, "data_type_vals": datatype_vals,
-                   "text_tax": txtdisp_tax, "tax_vals": tax_vals,
-                   "complexity": complexity, "reference": reference,
-                   "varrefno": variant_ref_nos, "tech_variants": tech_variants,
-                   "description": description,
-                   "reroute_string": "mdpbasic"}
-                  )
+
 
 
 def qmbasic(request, pk):
@@ -487,7 +496,6 @@ def lang_langs(request, pk):
 
 def enrichbasic(request, pk):
     type_objects = EnrichmentType.objects.all()
-    enrich_objects = Enrichment.objects.all()
     type_strings = list(type_objects.values_list('type_name', flat=True))
     enrich_dict = {}
     for index in range(len(type_strings)):
@@ -502,5 +510,8 @@ def enrichbasic(request, pk):
                    "references": references
                    }
                   )
+
+def do_nothing(request):
+    return render(request, 'introduction.html')
 
 
