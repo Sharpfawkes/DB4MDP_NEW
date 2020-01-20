@@ -1,39 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout/layout.html' %}
+{% load static %}
 {% load filters %}
-<head>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% for enrichment_type, enrich_objs in enrichment_info.items %}
-        <p>{{ enrichment_type }}</p>
-        <ul>
-            {% for enrich_obj in enrich_objs %}
-                <button onclick="setTimeout(function(){location.href=generate_url({{ enrich_obj.enrichment_id }});},500);"> {{ enrich_obj.enrichment_name }}</button>
-            {% endfor %}
-        </ul>
+{% block content %}
+    <div class="hero-text-box">
+        <h1>Choose an enrichment method</h1>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Search" id="quicksearch"/>
+      <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+    </div>
+    <section id="searchgrid">
+    {% for enrich_objs in enrichment_info.values %}
+        {% for enrich_obj in enrich_objs %}
+        <button class="button search-item" onclick="setTimeout(function(){location.href=generate_url({{ enrich_obj.enrichment_id }},'{{ reroute_string }}');},500);"> {{ enrich_obj.enrichment_name }}</button>
+        {% endfor %}
     {% endfor %}
+    </section>
     <br/>
-    {% if references %}
-    <p>References</p>
-    <ul>
-    {% for reference in references %}
-        <li>{{ reference }}</li>
-    {% endfor %}
-    </ul>
+    {% if got_item %}
+        <div id='results' class="hero-text-box">
+            <h1 class="fancy"><strong>{{ enrichment_retd.enrichment_name }} - {{ enrichment_retd.enrichment_type }}</strong></h1>
+        </div>
+        <div id="filters" class="single-sel-group button-group">
+            <button class="button" data-filter=".refs">References</button>
+            <button class="button" data-filter=".desc">Description</button>
+        </div>
+        <div class="option-grid">
+        {% if references %}
+            <ol class="gradient-list">
+            {% for reference in references %}
+                <li class="grid-item refs"><strong>[{{ reference.id }}]</strong> {{ reference.citation }}</li>
+            {% endfor %}
+            </ol>
+        {% endif %}
+        {% if description %}
+        <p class="grid-item desc">
+        {{ description }}
+        </p>
+        {% endif %}
+        </div>
     {% endif %}
-    {% if enrichment_retd.description %}
-    <p>Description</p>
-    <p>{{ enrichment_retd.description }}</p>
-    {% endif %}
-<script>
-        function generate_url(enrich_id) {
-    var url_path = location.href.split('/')[0] + '/enrichbasic/' + enrich_id.toString();
-    return url_path;
-}
-</script>
-</body>
-</html>
+{% endblock %}

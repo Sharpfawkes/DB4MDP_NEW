@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
     <title>QCRI | DB4MDP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
     <!-- Used for setting up the fluid grid -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/grid.css' %}">
@@ -32,7 +31,7 @@
                 <!-- <img src="resources/img/logo.png" alt="QCRI Logo" class="logo-black"> -->
                 <ul class="main-nav js--main-nav">
                     <li><a href="/">Resource</a></li>
-                    <li><a href="#search-options">Search</a></li>
+                    <li><a href="/#search-options">Search</a></li>
                     <li><a href="#team">About</a></li>
                 </ul>
                 <a class="mobile-nav-icon js--nav-icon"><i class="ion-navicon-round"></i></a>
@@ -73,21 +72,19 @@
 {#                <a class="btn btn-full" id="submit-main" href="#">Submit</a>#}
 {#            </div>#}
 {#        </div>#}
+<script id="MathJax-script" async src={% static 'js/tex-mml-chtml.js' %}></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-          src="https://code.jquery.com/jquery-3.4.1.min.js"
-          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-          crossorigin="anonymous">
-</script>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 {#    <script type="text/javascript" src="{% static 'js/dyn_script.js' %}"></script>#}
 {#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
 {#    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>#}
-<script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
-<script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
-<script src="//cdn.jsdelivr.net/selectivizr/1.0.3b/selectivizr.min.js"></script>
+<script src="{% static 'js/respond.min.js' %}"></script>
+<script src="{% static 'js/html5shiv.min.js' %}"></script>
+<script src="{% static 'js/selectivizr.min.js' %}"></script>
 <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'js/myjs.js' %}"></script>
 <script src="{% static 'js/pen_script.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
 {#    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>#}

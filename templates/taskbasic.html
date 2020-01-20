@@ -1,53 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout/layout.html' %}
+{% load static %}
 {% load filters %}
-<head>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block content %}
+    <div class="hero-text-box">
+        <h1>Choose a task</h1>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Search" id="quicksearch"/>
+      <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+    </div>
+    <section id="searchgrid">
     {% for task in task_list %}
-        <button onclick="setTimeout(function(){location.href=generate_url({{ task.task_id }});},500);"> {{ task.task_name }}</button>
+        <button  class="button search-item" onclick="setTimeout(function(){location.href=generate_url({{ task.task_id }},'{{ reroute_string }}');},500);"> {{ task.task_name }}</button>
     {% endfor %}
+    </section>
     <br/>
-    <ul>
-    {% for field_data in task_fields %}
-        <li>{{ field_data.0 }} : {{ task_retd|task_filter:field_data.1|task_filter:field_data.2 }}</li>
-    {% endfor %}
-    <li>Reference: {{ reference }}</li>
-    {% if parent_obj %}
-        <li>Parent Task: <a href="/taskbasic/{{ parent_obj.0 }}">{{ parent_obj.1 }}</a></li>
-    {% endif %}
-    {% if children %}
-        <li>Child Tasks</li>
-        <ul>
-        {% for child in children %}
-            <li><a href="/taskbasic/{{ child.task_id }}">{{ child.task_name }}</a></li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-    {% if numbers %}
-        <li>Numbers</li>
-        <ul>
-            {% for number in numbers %}
-                <li><a href="taskbasic/{{ number.task_id }}">{{ number.task_name }}</a></li>
+   {% if got_item %}
+        <div class="hero-text-box" id="results">
+            <h1 class="fancy"><strong>{{ task_retd.task_name }}</strong></h1>
+        </div>
+        <div id="filters" class="single-sel-group button-group">
+            {% for field_data in task_fields %}
+                <button class="button" data-filter=".{{ field_data.3 }}">{{ field_data.0 }}</button>
             {% endfor %}
-        </ul>
-    {% endif %}
-    {% if description %}
-    <p>Description<br/>
-    {{ description }}
-    </p>
-    {% endif %}
-    </ul>
-<script>
-    function generate_url(task_id) {
-    var url_path = location.href.split('/')[0] + '/taskbasic/' + task_id.toString();
-    return url_path;
-}
-</script>
-
-</body>
-</html>
+            <button class="button" data-filter=".refs">References</button>
+            {% if children %}
+                <button class="button" data-filter=".child">Child Tasks</button>
+            {% endif %}
+            {% if numbers %}
+                <button class="button" data-filter=".nums">Numbers</button>
+            {% endif %}
+            {% if parent_obj %}
+                <button class="button" data-filter=".parent">Parent Task</button>
+            {% endif %}
+            <button class="button" data-filter=".desc">Description</button>
+        </div>
+        <div class="option-grid">
+            {% for field_data in task_fields %}
+                <ol class="gradient-list">
+                {% if field_data.0 != "Actor" %}
+                <li class="grid-item {{ field_data.3 }}">
+                    {{ task_retd|task_filter:field_data.1|task_filter:field_data.2 }}
+                </li>
+                {% endif %}
+                </ol>
+            {% endfor %}
+                <ol class="gradient-list">
+                <li class="grid-item act">
+                    {{ task_retd.get_actor_display }}
+                </li>
+                </ol>
+            <ol class="gradient-list">
+                <li class="grid-item refs"><strong>[{{ reference.id }}]</strong> {{ reference.citation }}</li>
+            </ol>
+            {% if parent_obj %}
+                <button class="grid-item button parent" onclick="setTimeout(function(){location.href=generate_url({{ parent_obj.0 }},'{{ reroute_string }}');},500);">{{ parent_obj.1 }}</button>
+            {% endif %}
+            {% if children %}
+                {% for child in children %}
+                    <button class="grid-item button child" onclick="setTimeout(function(){location.href=generate_url({{ child.task_id }},'{{ reroute_string }}');},500);">{{ child.task_name }}</button>
+                {% endfor %}
+            {% endif %}
+            {% if numbers %}
+                {% for number in numbers %}
+                    <button class="grid-item button nums" onclick="setTimeout(function(){location.href=generate_url({{ number.task_id }},'{{ reroute_string }}');},500);">{{ number.task_name }}</button>
+                {% endfor %}
+            {% endif %}
+            {% if description %}
+            <p class="grid-item desc">
+            {{ description }}
+            </p>
+            {% endif %}
+        </div>
+   {% endif %}
+{% endblock %}

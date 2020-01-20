@@ -1,64 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout/layout.html' %}
+{% load static %}
 {% load filters %}
-<head>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block content %}
+    <div class="hero-text-box">
+        <h1>Choose a projection technique</h1>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Search" id="quicksearch"/>
+      <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+    </div>
+    <section id="searchgrid">
     {% for method in methods_list %}
-        <button onclick="setTimeout(function(){location.href=generate_url({{ method.mdp_id }});},500);"> {{ method.mdp_name }}</button>
+        <button  class="button search-item" onclick="setTimeout(function(){location.href=generate_url({{ method.mdp_id }},'{{ reroute_string }}');},500);"> {{ method.mdp_name }}</button>
     {% endfor %}
+    </section>
     <br/>
-    {% for key, values in language_data.items %}
-        <p>{{ key|display_string }}</p>
-        <ul>
-        {% for language in values %}
-            <li><a href="lang_langs/{{ language.0|indexing:0 }}">{{ language.0|indexing:1 }}</a></li>
-            {% if language.0|indexing:2 %}
-                <p>Description: {{ language.0|indexing:2 }}</p>
-            {% endif %}
-            <ul>
-            {% for toolbox in language.1 %}
-                <li>{{ toolbox.toolbox_name }}</li>
-                {% if toolbox.description %}
-                    <p>Description: {{ toolbox.description }}</p>
-                {% endif %}
+    {% if got_item %}
+        <div class="hero-text-box" id="results">
+            <h1 class="fancy"><strong>{{ proj_name }}</strong></h1>
+        </div>
+        <div id="filters" class="single-sel-group button-group">
+            <button class="button" data-filter=".Toolboxes_list">Toolboxes</button>
+            <button class="button" data-filter=".Libraries_List">Libraries</button>
+            <button class="button" data-filter=".refs">References</button>
+            <button class="button" data-filter=".desc">Description</button>
+        </div>
+        <div class="option-grid">
+        {% for key, values in language_data.items %}
+{#            <p>{{ key|display_string }}</p>#}
+            <ol class="gradient-list">
+            {% for language in values %}
+                <li class="grid-item {{ key }}">
+                    <strong>Programming Language / Library : </strong><button class="button" onclick="setTimeout(function(){location.href=generate_url({{ language.0|indexing:0 }},'{{ inter_route }}');},500);">{{ language.0|indexing:1 }}</button>
+                {% if language.0 or language.1 %}
+                    <br/><br/>
+                    {% if language.0|indexing:2 %}
+                        <p>Description: {{ language.0|indexing:2 }}</p>
+                        <br/>
+                    {% endif %}
+                {% if language.1 %}
+                <ul>
+                {% for toolbox in language.1 %}
+                    <li><strong>Toolbox Name : </strong>{{ toolbox.toolbox_name }}
+                    {% if toolbox.description %}
+                        <br/>
+                        <p>Description: {{ toolbox.description }}</p>
+                    {% endif %}
                 {% if toolbox|get_refs %}
-                    <p>References</p>
+                    <br/>
+                    <strong>References : </strong>
                     <ul>
                     {% for reference in toolbox|get_refs %}
-                        <li>{{ reference }}</li>
+                        <li><strong>[{{ reference.id }}]</strong> {{ reference.citation }}</li>
                     {% endfor %}
                     </ul>
                 {% endif %}
-
+                    </li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                </li>
+                {% endif %}
             {% endfor %}
-            </ul>
+            </ol>
         {% endfor %}
-        </ul>
-    {% endfor %}
-    {% if references %}
-    <p>References: </p>
-    <ul>
-    {% for reference in references %}
-        <li>{{reference}}</li>
-    {% endfor %}
-    {% endif %}
-    {% if description %}
-    <p>Description<br/>
-    {{ description }}
-    </p>
-    {% endif %}
-    </ul>
-<script>
-    function generate_url(method_id) {
-    var url_path = location.href.split('/')[0] + '/lang_mdps/' + method_id.toString();
-    return url_path;
-}
-</script>
-
-</body>
-</html>
+        {% if references %}
+            <ol class="gradient-list">
+            {% for reference in references %}
+                <li class="grid-item refs"><strong>[{{ reference.id }}]</strong> {{ reference.citation }}</li>
+            {% endfor %}
+            </ol>
+        {% endif %}
+        {% if description %}
+        <p class="grid-item desc">
+        {{ description }}
+        </p>
+        {% endif %}
+        </div>
+        {% endif %}
+{% endblock %}

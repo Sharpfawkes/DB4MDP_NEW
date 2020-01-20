@@ -312,7 +312,7 @@ header, #search-options {
 }
 
 #search-options{
-    height: 200vh;
+    min-height: 700vh;
 }
 
 header{
@@ -521,19 +521,19 @@ header .long-copy{
     margin-bottom: 80px;
 }
 
-.works-step div {
-    color: #e67e22;
-    font-size: 150%;
-    height: 54px;
-    width: 54px;
-    border: 2px solid #e67e22;
-    border-radius: 50%;
-    display: inline-block;
-    text-align: center;
-    margin-right: 25px;
-    float: left;
-    padding: 5px;
-}
+/*.works-step div {*/
+/*    color: #e67e22;*/
+/*    font-size: 150%;*/
+/*    height: 54px;*/
+/*    width: 54px;*/
+/*    border: 2px solid #e67e22;*/
+/*    border-radius: 50%;*/
+/*    display: inline-block;*/
+/*    text-align: center;*/
+/*    margin-right: 25px;*/
+/*    float: left;*/
+/*    padding: 5px;*/
+/*}*/
 
 .btn-app:link,
 .btn-app:visited {

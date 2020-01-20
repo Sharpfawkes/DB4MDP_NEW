@@ -57,14 +57,15 @@ from django.core.exceptions import ObjectDoesNotExist
 # https://stackoverflow.com/questions/1413122/is-autoescape-off-in-django-safe
 # https://stackoverflow.com/questions/45163299/django-group-by-field-value
 # https://stackoverflow.com/questions/12809416/django-static-files-404
+# https://docs.djangoproject.com/en/2.0/ref/models/instances/#django.db.models.Model.get_FOO_display
 
 data_type_fieldnames = ['dissimilarity_id', 'ordinal_id', 'cartesian_id', 'ne_structures_id', 'categorical_id']
 tax_fieldnames = ['linearity_id', 'supervision_id', 'multi_level_id', 'locality_id', 'steerability_id',
                   'stability_id', 'out_of_core_data_id']
-qm_fieldnames = {'Span': ['local', 'glob'], 'Distortion Type': ['dissimilarity', 'correlation',
+qm_fieldnames = {('Span', 'span'): ['local', 'glob'], ('Distortion Type', 'dist'): ['dissimilarity', 'correlation',
                                                                 'probability', 'rank', 'geometric',
                                                                 'set_difference', 'homology'],
-                 'Output': ['rangee', 'best']}
+                 ('Output', 'op'): ['rangee', 'best']}
 task_fieldnames = [['Task Type', 'task_type'], ['Input Space', 'input_space'], ['Output Space', 'output_space'],
                    ['Actor', 'actor'], ['Target Space', 'ts']
                    ]
@@ -79,11 +80,11 @@ txtdisp_tax = [((i.split('_id')[0]).replace('_', ' ')).title() for i in tax_fiel
 #                          sublist[1] = Parameter Query Name
 #                          sublist[2] = Parameter used to query returned object
 task_fields = [
-    ['Task Type', 'task_type', 'type_name'],
-    ['Input Space', 'input_space', 'mathjaxeqn'], ['Output Space', 'output_space', 'mathjaxeqn'],
-    ['Actor', 'actor', None], ['Target Space', 'ts', 'mathjaxeqn'],
-    ['MDP Property', 'task_property', 'mdp_property'],
-    ['Best Matching MDPs', 'best_mdp_list', 'best_matching_mdp'],
+    ['Task Type', 'task_type', 'type_name', 'ttype'],
+    ['Input Space', 'input_space', 'mathjaxeqn', 'inpsp'], ['Output Space', 'output_space', 'mathjaxeqn', 'outsp'],
+    ['Actor', 'actor', None, 'act'], ['Target Space', 'ts', 'mathjaxeqn', 'ts'],
+    ['MDP Property', 'task_property', 'mdp_property', 'prop'],
+    ['Best Matching MDPs', 'best_mdp_list', 'best_matching_mdp', 'bestmatch'],
     # ['Parent Task', 'parent_id', 'task_name'],
     # ['Reference', 'reference_list', None]
 ]
@@ -97,8 +98,11 @@ def getvalues(queryset, fieldnames):
 
 
 def mdpbasic(request, pk=None):
-    # batch_size = 3  # Change to change the number of boxes displayed per row on the basic page.
-    data = MDP.objects.values('mdp_name', 'mdp_id').order_by('mdp_id')
+    # This data will be for the mdp list. I am not going to be displaying the full name but only the short form since
+    # otherwise it doesn't look very appealing visually. However, since the user is allowed to search by the projection
+    # name, I also want them to be able to search by the full name. Thus, I put that full name within a span element and
+    # set it's display attribute to none. So, it won't be visible but the filter can still see the value.
+    data = MDP.objects.values('mdp_name', 'mdp_fullname', 'mdp_id').order_by('mdp_id')
     # Will contain a dictionary of the handling ability id and the text mapped to that id. So that I don't have to
     # make queries for every single attribute in the database whenever i need to fetch the text.
     handling_text = {}
@@ -138,7 +142,7 @@ def mdpbasic(request, pk=None):
                     tech_variant[1] = ref_val
         description = projection_technique.description
         # print(tech_variants, ref_vals)
-        return render(request, 'mdpbasictemp.html',
+        return render(request, 'mdpbasic.html',
                       {"mdp_list": data, "projtechname": projtech_name,
                        "handling_text": handling_text,
                        "text_display": txtdisp_data, "data_type_vals": datatype_vals,
@@ -151,75 +155,90 @@ def mdpbasic(request, pk=None):
                       )
     except ObjectDoesNotExist:
         return render(request, 'mdpbasic.html',
-                      {'mdp_list': data, 'got_item': False}
+                      {'mdp_list': data, 'got_item': False,
+                       'reroute_string': "mdpbasic"}
                       )
 
 
 
 
-def qmbasic(request, pk):
+def qmbasic(request, pk=None):
     data = QualityMeasure.objects.values('measure_name', 'measure_id').order_by('measure_id')
-    measure_method = QualityMeasure.objects.get(measure_id=pk)
-    # No need to use filter here because we will only be retrieving one item
-    rangee = measure_method.rangee
-    field_vals = []
-    qm_fieldsets = [value for _, value in qm_fieldnames.items()]
-    # field_vals is a list of lists. Each list within the main list has exactly 2 elements (also lists). The first
-    # element contains the values returned from the query corresponding to a particular section. Example for the Span
-    # section we get the values [None, None] for example corresponding to ['Local', 'Global'] in the second element
-    # The filter chaining in the template can be understood based on this. There are 2 possible objects that can be
-    # returned as can be inferred from above i.e. a mathjaxformula object or a qm_parameter object. So in the template
-    # I am checking if the object contains the mathjaxeqn parameter and if it doesn't I know it is a qm_parameter option
-    # and then I can go for the parameter_option passed through the filter
-    for index in range(len(qm_fieldsets)):
-        fieldset = qm_fieldsets[index]
-        field_vals.append([list(getvalues(measure_method, fieldset)), parameter_text[index]])
-    references = measure_method.reference.all()
-    description = measure_method.description
+    try:
+        measure_method = QualityMeasure.objects.get(measure_id=pk)
+        # No need to use filter here because we will only be retrieving one item
+        rangee = measure_method.rangee
+        field_vals = []
+        qm_fieldsets = [value for _, value in qm_fieldnames.items()]
+        # field_vals is a list of lists. Each list within the main list has exactly 2 elements (also lists). The first
+        # element contains the values returned from the query corresponding to a particular section. Example for the Span
+        # section we get the values [None, None] for example corresponding to ['Local', 'Global'] in the second element
+        # The filter chaining in the template can be understood based on this. There are 2 possible objects that can be
+        # returned as can be inferred from above i.e. a mathjaxformula object or a qm_parameter object. So in the template
+        # I am checking if the object contains the mathjaxeqn parameter and if it doesn't I know it is a qm_parameter option
+        # and then I can go for the parameter_option passed through the filter
+        for index in range(len(qm_fieldsets)):
+            fieldset = qm_fieldsets[index]
+            field_vals.append([list(getvalues(measure_method, fieldset)), parameter_text[index]])
+        references = measure_method.reference.all()
+        description = measure_method.description
+        print(qm_fieldnames.items(), field_vals, sep='\n')
 
-    return render(request, 'qmbasic.html',
-                  {"qm_list": data, "measure_method": measure_method,
-                   "qm_fielditems": qm_fieldnames.items(),
-                   "parameter_text": parameter_text,
-                   "field_vals": field_vals,
-                   "references": references,
-                   "description": description,
-                   "reroute_string": "qmbasic"
-                   }
-                  )
+        return render(request, 'qmbasic.html',
+                      {"qm_list": data, "measure_method": measure_method,
+                       "qm_fielditems": qm_fieldnames.items(),
+                       "parameter_text": parameter_text,
+                       "field_vals": field_vals,
+                       "references": references,
+                       "description": description,
+                       "reroute_string": "qmbasic",
+                       'got_item': True,
+                       }
+                      )
+    except ObjectDoesNotExist:
+        return render(request, 'qmbasic.html',
+                      {'qm_list': data, 'got_item': False,
+                       "reroute_string": "qmbasic",}
+                      )
 
-
-def taskbasic(request, pk):
+def taskbasic(request, pk=None):
     # If it is a child task, then we need to use the parent_id to retrieve the
     # reference from the parent. This is because only the parent will have the reference number.
     data = Task.objects.values('task_name', 'task_id').order_by('task_id')
-    task_retd = Task.objects.get(task_id=pk)
-    description = task_retd.description
-    parent_id = task_retd.parent_id
-    numbers_ids = task_retd.numbers
-    parent_obj = None
-    numbers = None
-    children = None
-    if parent_id:
-        print((Task.objects.get(task_id=parent_id.task_id)).task_id)
-        parent_obj = getvalues(Task.objects.get(task_id=parent_id.task_id),
-                               ['task_id', 'task_name', 'reference_list'])
-        reference = parent_obj[2]
-    else:
-        reference = task_retd.reference_list
-        child_objs = task_retd.child_id.all()
-        if child_objs:
-            children = child_objs.values('task_id', 'task_name')
-    if numbers_ids:
-        numbers = numbers_ids.all().values('task_id', 'task_name')
-
-    return render(request, 'taskbasic.html',
-                  {"task_list": data, "task_fields": task_fields,
-                   "task_retd": task_retd, "reference": reference, "children": children, "parent_obj": parent_obj,
-                   "numbers": numbers, "description": description,
-                   "reroute_string": "taskbasic"
-                   }
-                  )
+    try:
+        task_retd = Task.objects.get(task_id=pk)
+        description = task_retd.description
+        parent_id = task_retd.parent_id
+        numbers_ids = task_retd.numbers
+        parent_obj = None
+        numbers = None
+        children = None
+        if parent_id:
+            print((Task.objects.get(task_id=parent_id.task_id)).task_id)
+            parent_obj = getvalues(Task.objects.get(task_id=parent_id.task_id),
+                                   ['task_id', 'task_name', 'reference_list'])
+            reference = parent_obj[2]
+        else:
+            reference = task_retd.reference_list
+            child_objs = task_retd.child_id.all()
+            if child_objs:
+                children = child_objs.values('task_id', 'task_name')
+        if numbers_ids:
+            numbers = numbers_ids.all().values('task_id', 'task_name')
+        print(task_fields)
+        return render(request, 'taskbasic.html',
+                      {"task_list": data, "task_fields": task_fields,
+                       "task_retd": task_retd, "reference": reference, "children": children, "parent_obj": parent_obj,
+                       "numbers": numbers, "description": description,
+                       "reroute_string": "taskbasic",
+                       'got_item': True
+                       }
+                      )
+    except ObjectDoesNotExist:
+        return render(request, 'taskbasic.html',
+                      {'task_list': data, 'got_item': False,
+                       'reroute_string': "taskbasic"}
+                      )
 
 
 def get_lang_vals(object_data, parameter_name, language_data):
@@ -232,24 +251,33 @@ def get_lang_vals(object_data, parameter_name, language_data):
     return language_data
 
 
-def lang_mdps(request, pk):
+def lang_mdps(request, pk=None):
     # If it is a child task, then we need to use the parent_id to retrieve the
     # reference from the parent. This is because only the parent will have the reference number.
     data = MDPsForLang.objects.values('mdp_name', 'mdp_id').order_by('mdp_id')
-    projtech_retd = MDPsForLang.objects.get(mdp_id=pk)
-    description = projtech_retd.description
-    language_data = {}
-    language_data = get_lang_vals(projtech_retd.circle_list, "Toolboxes_list", language_data)
-    language_data = get_lang_vals(projtech_retd.square_list, "Libraries_List", language_data)
-    print("lang_data", language_data)
-    references = projtech_retd.reference_list.all()
+    try:
+        projtech_retd = MDPsForLang.objects.get(mdp_id=pk)
+        description = projtech_retd.description
+        language_data = {}
+        language_data = get_lang_vals(projtech_retd.circle_list, "Toolboxes_list", language_data)
+        language_data = get_lang_vals(projtech_retd.square_list, "Libraries_List", language_data)
+        references = projtech_retd.reference_list.all()
+        print(language_data)
 
-    return render(request, 'lang_mdps.html',
-                  {"methods_list": data, "description": description,
-                   "language_data": language_data, "references": references,
-                   "reroute_string": "lang_mdps"
-                   }
-                  )
+        return render(request, 'lang_mdps.html',
+                      {"methods_list": data,
+                       "proj_name": projtech_retd.mdp_name, "description": description,
+                       "language_data": language_data, "references": references,
+                       "reroute_string": "lang_mdps", "got_item": True,
+                       "inter_route": "lang_langs"
+                       }
+                      )
+    except ObjectDoesNotExist:
+        return render(request, 'lang_mdps.html',
+                          {"methods_list": data,
+                           "reroute_string": "lang_mdps", "got_item": False
+                           }
+                      )
 
 def get_operator(request):
     operator = "~" if (request.GET.get("Exc", '') == "Yes") else ""
@@ -316,6 +344,7 @@ def mdpadvanced(request):
     queries, options = nonetype_query_generator_fn(request, data_type_fieldnames + tax_fieldnames)
     if not options:
         queries = Q(**{"mdp_id": None})
+    print(queries)
     results = MDP.objects.filter(queries).values('mdp_id', 'mdp_name', 'mdp_fullname')
     # print(results)
     # print(len(results), results)
@@ -323,6 +352,7 @@ def mdpadvanced(request):
                   {
                       "link_data": link_data, "link_props": link_props,
                       "filter_options": filter_options, "results": results,
+                      "reroute_string": "mdpbasic",
                   })
 
 def reg_query_generator_fn(request, regquery_strings, trivial_string = "range_eqn", field_name = "rangee"):
@@ -340,7 +370,12 @@ def reg_query_generator_fn(request, regquery_strings, trivial_string = "range_eq
         # not just rangee and that's why I have added the _id below.
         if request_val == "Yes":
             id_obtd = int(query_obj.split(trivial_string)[1])
-            options[(field_name+"_id")] = id_obtd
+            if field_name != "best":
+                options[(field_name+"_id")] = id_obtd
+            # best is the only field that will be passed to this function that will not use a foreign key. so in that
+            # case we should not be adding _id to the end of it because best_id doesn't exist.
+            else:
+                options[(field_name)] = id_obtd
             break
     operator = get_operator(request)
     queries = Q()
@@ -374,9 +409,12 @@ def qmadvanced(request):
     range_options = list(MathJaxFormulas.objects.filter(equation_type_id=2).values_list('mathjaxeqn', 'id'))
     # print(range_options)
     qmfield_strings.remove('rangee')
+    qmfield_strings.remove('best')
     regquery_strings = ["range_eqn"+str(id) for _, id in range_options]
+    best_query_strings = ['best0', 'best1']
     queries, options1 = nonetype_query_generator_fn(request, qmfield_strings, 'measure_id')
     reg_queries, options2 = reg_query_generator_fn(request, regquery_strings)
+    best_queries, options3 = reg_query_generator_fn(request, best_query_strings, 'best', 'best')
     # print(reg_queries)
     # range_eqn not in query obj is used in the case of the qm advd section. This is because to render the rangee
     # section, we are not using the rangee field name but instead getting the mathjaxeqns. So range_eqn15 and so on
@@ -387,11 +425,13 @@ def qmadvanced(request):
     # OR the resultant generated queries together.
     if "&" in operator:
         queries &= reg_queries
+        queries &= best_queries
         print(queries)
     else:
         queries |= reg_queries
+        queries |= best_queries
     # Check in mdp_advanced for the explanation of this statement.
-    if not options1 and not options2:
+    if not options1 and not options2 and not options3:
         queries = Q(**{"measure_id": None})
 
     results = QualityMeasure.objects.filter(queries).values('measure_id', 'measure_name')
@@ -400,7 +440,7 @@ def qmadvanced(request):
                   {
                       "parameter_text": parameter_text, "qm_fieldnames": qm_fieldnames,
                       "filter_options": filter_options, "results": results, "range_options": range_options,
-                      "range_strings": regquery_strings
+                      "range_strings": regquery_strings, 'reroute_string': 'qmbasic'
                   })
 
 def taskadvanced(request):
@@ -467,34 +507,41 @@ def taskadvanced(request):
                       "query_strings": regquery_strings
                   })
 
-def lang_langs(request, pk):
+def lang_langs(request, pk=None):
     data = Languages.objects.values('language_name', 'language_id').order_by('language_id')
-    language_retd = Languages.objects.get(language_id=pk)
-    all_mdps_handled = MDPsForLang.objects.all()
-    mdps_handled = []
-    for mdp_object in all_mdps_handled:
-        # Getting the list of querysets containing toolboxes and libraries separately
-        mdp_langs = [i.all() for i in getvalues(mdp_object, ['circle_list', 'square_list'])]
-        for query_set in mdp_langs:
-            # The below if statements generates a ton of queries that use inner join etc. Instead using the .exists
-            # property to search for whether the object is present in the query should be faster.
-            # if language_retd in query_set:
-            #     mdps_handled.append(mdp_object)
-                # If I've already found it in the first i.e. toolboxes queryset I don't want to search libraries also.
-            if query_set.filter(language_id=pk).exists():
-                mdps_handled.append(mdp_object)
-                break
-    description = language_retd.description
-    toolboxes_suppd = language_retd.toolboxes_suppd.all()
+    try:
+        language_retd = Languages.objects.get(language_id=pk)
+        all_mdps_handled = MDPsForLang.objects.all()
+        mdps_handled = []
+        for mdp_object in all_mdps_handled:
+            # Getting the list of querysets containing toolboxes and libraries separately
+            mdp_langs = [i.all() for i in getvalues(mdp_object, ['circle_list', 'square_list'])]
+            for query_set in mdp_langs:
+                # The below if statements generates a ton of queries that use inner join etc. Instead using the .exists
+                # property to search for whether the object is present in the query should be faster.
+                # if language_retd in query_set:
+                #     mdps_handled.append(mdp_object)
+                    # If I've already found it in the first i.e. toolboxes queryset I don't want to search libraries also.
+                if query_set.filter(language_id=pk).exists():
+                    mdps_handled.append(mdp_object)
+                    break
+        description = language_retd.description
+        toolboxes_suppd = language_retd.toolboxes_suppd.all()
 
-    return render(request, 'lang_langs.html',
-                  {"language_list": data, "description": description,
-                   "toolboxes_suppd": toolboxes_suppd, "mdps_handled": mdps_handled,
-                   "reroute_string": "lang_langs"
-                   }
-                  )
+        return render(request, 'lang_langs.html',
+                      {"language_list": data, "description": description,
+                       "lang_name": language_retd.language_name,
+                       "toolboxes_suppd": toolboxes_suppd, "mdps_handled": mdps_handled,
+                       "reroute_string": "lang_mdps",
+                       "got_item": True,
+                       }
+                      )
+    except ObjectDoesNotExist:
+        return render(request, 'lang_langs.html',
+                      {"language_list": data, "got_item": False,
+                       "reroute_string": "lang_langs"})
 
-def enrichbasic(request, pk):
+def enrichbasic(request, pk=None):
     type_objects = EnrichmentType.objects.all()
     type_strings = list(type_objects.values_list('type_name', flat=True))
     enrich_dict = {}
@@ -502,14 +549,22 @@ def enrichbasic(request, pk):
         type_name = type_strings[index]
         type_object = type_objects[index]
         enrich_dict[type_name] = Enrichment.objects.filter(enrichment_type=type_object)
-    enrichment_retd = Enrichment.objects.get(enrichment_id=pk)
-    references = enrichment_retd.references.all()
-    return render(request, 'enrichbasic.html',
-                  {'enrichment_info': enrich_dict,
-                   "enrichment_retd": enrichment_retd,
-                   "references": references
-                   }
-                  )
+    try:
+        enrichment_retd = Enrichment.objects.get(enrichment_id=pk)
+        references = enrichment_retd.references.all()
+        return render(request, 'enrichbasic.html',
+                      {'enrichment_info': enrich_dict,
+                       "enrichment_retd": enrichment_retd,
+                       "references": references, "got_item": True,
+                       "reroute_string": "enrichbasic"
+                       }
+                      )
+    except ObjectDoesNotExist:
+        return render(request, 'enrichbasic.html',
+                      {'enrichment_info': enrich_dict,
+                        "got_item": False, "reroute_string": 'enrichbasic'
+                       }
+                      )
 
 def do_nothing(request):
     return render(request, 'introduction.html')

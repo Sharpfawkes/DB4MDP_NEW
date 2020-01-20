@@ -1,53 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout/layout.html' %}
+{% load static %}
 {% load filters %}
-<head>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% for qmeasure in qm_list %}
-        <button onclick="setTimeout(function(){location.href=generate_url({{ qmeasure.measure_id }});},500);"> {{ qmeasure.measure_name }}</button>
-    {% endfor %}
-    <br/>
-    {% for key in qm_fielditems %}
-        <p>{{ key.0 }}</p>
-        <ul>
-        {% for parameter in field_vals|indexing:forloop.counter0|indexing:0 %}
-            {% if parameter != None %}
-                {% if not parameter.mathjaxeqn %}
-                    <li>{{ field_vals|indexing:forloop.parentloop.counter0|indexing:1|indexing:forloop.counter0 }} :
-                        {{ field_vals|indexing:forloop.parentloop.counter0|indexing:0|indexing:forloop.counter0|param_val:"parameter_option"}}
-                    </li>
-                {% else %}
-                    <li>{{ field_vals|indexing:forloop.parentloop.counter0|indexing:1|indexing:forloop.counter0 }} :
-                        {{ field_vals|indexing:forloop.parentloop.counter0|indexing:0|indexing:forloop.counter0|param_val:"mathjaxeqn" }}
-                    </li>
-                {% endif %}
-            {% endif %}
+{% block content %}
+    <div class="hero-text-box">
+        <h1>Choose a quality measure</h1>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Search" id="quicksearch"/>
+      <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+    </div>
+    <section id="searchgrid">
+        {% for qmeasure in qm_list %}<button class="button search-item" onclick="setTimeout(function(){location.href=generate_url({{ qmeasure.measure_id }},'{{ reroute_string }}');},500);">
+            {{ qmeasure.measure_name }}
+        </button>
         {% endfor %}
-        </ul>
-    {% endfor %}
-    </ul>
-    {% if references %}
-    <p>References</p>
-    <ul>
-    {% for reference in references %}
-        <li>{{ reference }}</li>
-    {% endfor %}
-    </ul>
+    </section>
+    <br/>
+    {% if got_item %}
+        <div class="hero-text-box" id="results">
+            <h1 class="fancy"><strong>{{ measure_method.measure_name }}</strong></h1>
+        </div>
+        <div id="filters" class="single-sel-group button-group">
+        {% for key, _ in qm_fielditems %}
+            <button class="button" data-filter=".{{ key.1 }}">{{ key.0 }}</button>
+        {% endfor %}
+            <button class="button" data-filter=".refs">References</button>
+            <button class="button" data-filter=".desc">Description</button>
+        </div>
+        <div class="option-grid">
+        {% for key, value in qm_fielditems %}
+            <ol class="gradient-list">
+            {% for parameter in field_vals|indexing:forloop.counter0|indexing:0 %}
+                {% if parameter != None %}
+                    {% if not parameter.mathjaxeqn %}
+                        <li class="grid-item {{ qm_fielditems|indexing:forloop.parentloop.counter0|indexing:0|indexing:1 }}">
+                            <strong>{{ field_vals|indexing:forloop.parentloop.counter0|indexing:1|indexing:forloop.counter0 }}</strong> :
+                            {{ field_vals|indexing:forloop.parentloop.counter0|indexing:0|indexing:forloop.counter0|param_val:"parameter_option"}}
+                        </li>
+                    {% else %}
+                        <li class="grid-item op">
+                            <strong>{{ field_vals|indexing:forloop.parentloop.counter0|indexing:1|indexing:forloop.counter0 }}</strong> :
+                            {{ field_vals|indexing:forloop.parentloop.counter0|indexing:0|indexing:forloop.counter0|param_val:"mathjaxeqn" }}
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            </ol>
+        {% endfor %}
+        {% if references %}
+        <ol class="gradient-list">
+        {% for reference in references %}
+            <li class="grid-item refs"><strong>[{{ reference.id }}]</strong> {{ reference.citation }}</li>
+        {% endfor %}
+        </ol>
+        {% endif %}
+        {% if description %}
+            <p class="grid-item desc">
+            {{ description }}
+            </p>
+        {% endif %}
+        </div>
     {% endif %}
-    {% if description %}
-    <p>Description</p>
-    <p>{{ description }}</p>
-    {% endif %}
-<script>
-        function generate_url(qm_id) {
-    var url_path = location.href.split('/')[0] + '/qmbasic/' + qm_id.toString();
-    return url_path;
-}
-</script>
-</body>
-</html>
+{% endblock %}

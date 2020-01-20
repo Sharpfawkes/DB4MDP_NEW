@@ -1,50 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout/layout.html' %}
+{% load static %}
 {% load filters %}
-<head>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block content %}
+    <div class="hero-text-box">
+        <h1>Choose a language</h1>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Search" id="quicksearch"/>
+      <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+    </div>
+    <section id="searchgrid">
     {% for language in language_list %}
-        <button onclick="setTimeout(function(){location.href=generate_url({{ language.language_id }});},500);"> {{ language.language_name }}</button>
+        <button  class="button search-item" onclick="setTimeout(function(){location.href=generate_url({{ language.language_id }},'{{ reroute_string }}');},500);"> {{ language.language_name }}</button>
     {% endfor %}
+    </section>
     <br/>
-    <ul>
-    {% for toolbox in toolboxes_suppd %}
-        <li>{{ toolbox.toolbox_name }}</li>
-        {% if toolbox.description %}
-            <p>Description: {{ toolbox.description }}</p>
-        {% endif %}
-        {% if toolbox|get_refs %}
-            <p>References</p>
-            <ul>
-            {% for reference in toolbox|get_refs %}
-                <li>{{ reference }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endfor %}
-    </ul>
-    <ul>
-        {% for mdp in mdps_handled %}
-            <li><a href="mdpbasic/{{ mdp.mdp_id }}">{{ mdp.mdp_name }}</a></li>
-        {% endfor %}
-    </ul>
-    {% if description %}
-        <p>Description<br/>
-        {{ description }}
-        </p>
-    {% endif %}
-    </ul>
-<script>
-    function generate_url(method_id) {
-    var url_path = location.href.split('/')[0] + '/lang_mdps/' + method_id.toString();
-    return url_path;
-}
-</script>
+    {% if got_item %}
+        <div class="hero-text-box" id="results">
+            <h1 class="fancy"><strong>{{ lang_name }}</strong></h1>
+        </div>
+    <div id="filters" class="single-sel-group button-group">
+        <button class="button" data-filter=".toolbox">Toolboxes</button>
+        <button class="button" data-filter=".mdps">MDPs Handled</button>
+        <button class="button" data-filter=".desc">Description</button>
+    </div>
 
-</body>
-</html>
+    <div class="option-grid">
+        <ol class="gradient-list">
+        {% for toolbox in toolboxes_suppd %}
+            <li class="grid-item toolbox"><strong>{{ toolbox.toolbox_name }}</strong>
+            <br/><br/>
+            {% if toolbox.description %}
+                <p>Description: {{ toolbox.description }}</p>
+                <br/>
+            {% endif %}
+            {% if toolbox|get_refs %}
+                <strong>References</strong>
+                <ul>
+                {% for reference in toolbox|get_refs %}
+                    <li><strong>[{{ reference.id }}]</strong> {{ reference.citation }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </li>
+        {% endfor %}
+        </ol>
+        {% for mdp in mdps_handled %}
+            <button class="grid-item button mdps" onclick="setTimeout(function(){location.href=generate_url({{ mdp.mdp_id }},'{{ reroute_string }}');},500);">{{ mdp.mdp_name }}</button>
+        {% endfor %}
+        {% if description %}
+            <p class="grid-item desc">Description<br/>
+            {{ description }}
+            </p>
+        {% endif %}
+    </div>
+        {% endif %}
+{% endblock %}

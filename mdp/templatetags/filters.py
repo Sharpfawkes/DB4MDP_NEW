@@ -4,7 +4,10 @@ register = template.Library()
 
 @register.filter(name='indexing')
 def indexing(value, index):
-    return value[index]
+    try:
+        return value[index]
+    except TypeError:
+        return list(value)[index]
 
 
 @register.filter(name="id_names")
@@ -44,3 +47,4 @@ def display_string(string_input):
 @register.filter(name="task_id_gen")
 def task_id_gen(object_data, trivial_str):
     return trivial_str+str(object_data[0])
+
