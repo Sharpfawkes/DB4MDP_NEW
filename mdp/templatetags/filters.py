@@ -48,3 +48,13 @@ def display_string(string_input):
 def task_id_gen(object_data, trivial_str):
     return trivial_str+str(object_data[0])
 
+# for the taskadvd section there are a lot of mathjax equations in input and output space. A mathjax equation rendered
+# using latex no longer appears as a normal character sequence but is rather split into many divs. So, I have to enclose
+# the string version of the equation in a span after removing the $$ to prevent even the hidden span from being rendered
+# using latex. This is what this function does.
+@register.filter(name="mathjax_handle")
+def mathjax_handle(mathjax_eqn):
+    print(mathjax_eqn.strip(" ").strip("$$"))
+    return mathjax_eqn.strip(" ").strip("$$")
+
+

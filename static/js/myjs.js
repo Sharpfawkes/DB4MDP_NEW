@@ -82,6 +82,8 @@ function sel_desel(elem) {
     }
     }
 
+
+
 function generate(arr_of_ids) {
     var url_path, index, index2, temp;
     /* Base url path has been defined. After that link_data|id_names:0 will return the list of element ids on the
@@ -117,70 +119,5 @@ function generate(arr_of_ids) {
     //     url_path += "{{ elem_id }}=Yes&";
     // }
     // {% endfor %}
-return url_path;
-}
-
-function generate_qm(qm_fieldnames, filter_options, range_options) {
-    var url_path;
-    /* Base url path has been defined. After that link_data|id_names:0 will return the list of element ids on the
-    page following which we get each element by id after typecasting it to a string (this is necessary because otherwise
-    if you check the generated source code you will see that there are no quotes around the id name and this raises
-    a getElementById null error. The query_update filter will append =Yes& to the id field. Then the string is returned
-    at the end. */
-    /* Can't just directly use location.href and keep appending to that because otherwise every time the page is loaded
-    the previous parameters will get retained regardless of whether the user has selected them or not. So we split the
-    URL at the first occurrence of the ? (after which the previously selected parameters will be found) and retain
-    only the 0th element of the split which corresponds to the base URL we want. */
-    console.log(qm_fieldnames);
-    console.log(filter_options);
-    console.log(range_options);
-    // var index, elem_id;
-    // url_path = location.href.split('?')[0] + "?";
-    // console.log(url_path);
-    // for (let [_, value] of Object.entries(qm_fieldnames)) {
-    //     for (index=0; index < value.length; index++){
-    //         elem_id = value[index];
-    //         if (elem_id != "rangee"){
-    //             if (document.getElementById(elem_id).value == 1){
-    //                 url_path += elem_id + "=Yes&";
-    //             }
-    //         }
-    //     }
-    // }
-    // for(index=0; index < filter_options.length; index++){
-    //     elem_id = filter_options[index];
-    //     if (document.getElementById(elem_id).value == 1){
-    //         url_path += elem_id + "=Yes&";
-    //     }
-    // }
-    // for(index=0; index < range_options.length; index++) {
-    //     elem_id = "range_eqn" + range_options[index][1];
-    //     if (document.getElementById(elem_id)){
-    //         url_path += elem_id + "=Yes&";
-    //     }
-    // }
-// {#    {% for _, value in qm_fieldnames.items %}#}
-// {#        {% for elem_id in value %}#}
-//             {#Have to do this otherwise I get element document.getElementbyId null error while trying to get the rangee #}
-//             {#button since it doesn't exist#}
-// {#            {% if elem_id != "rangee" %}#}
-// {#            if (document.getElementById("{{ elem_id }}").value == 1) {#}
-// {#            url_path += "{{ elem_id }}=Yes&";#}
-// {#    }#}
-// {#            {% endif %}#}
-// {#        {% endfor %}#}
-// {#    {% endfor %}#}
-// {#    {% for elem_id in filter_options %}#}
-// {#    if (document.getElementById("{{ elem_id }}").value == 1) {#}
-// {#        url_path += "{{ elem_id }}=Yes&";#}
-// {#    }#}
-// {#    {% endfor %}#}
-// {#{% for range_eqn, eqn_id in range_options %}#}
-// {#    if (document.getElementById("range_eqn{{ eqn_id }}").value == 1) {#}
-// {#                url_path += "range_eqn{{ eqn_id }}=Yes&";#}
-// {#        }#}
-// {#    {% endfor %}#}
-
-    //console.log(url_path);
 return url_path;
 }

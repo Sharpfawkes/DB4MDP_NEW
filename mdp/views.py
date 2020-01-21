@@ -439,7 +439,9 @@ def qmadvanced(request):
     return render(request, "qmadvanced.html",
                   {
                       "parameter_text": parameter_text, "qm_fieldnames": qm_fieldnames,
-                      "filter_options": filter_options, "results": results, "range_options": range_options,
+                      "field_vals": list(qm_fieldnames.values()),
+                      "filter_options": filter_options, "results": results,
+                      "range_options": range_options, "best_options": best_query_strings,
                       "range_strings": regquery_strings, 'reroute_string': 'qmbasic'
                   })
 
@@ -447,6 +449,11 @@ def taskadvanced(request):
     # This will be a dictionary. The key is going to be the trivial string that will be passed to the query_generator.
     # The values are going to be 2-element lists that have the id of the element from the respective table and also
     # the string to be displayed on the webpage.
+
+    # CAUTION. The order in which key-value pairs are being added to the dictionary below is important. The must follow
+    # same order as followed in task_fieldnames to give the string display names. This is because in the template, the
+    # loop counters are synched for fetching datas, assigning ids etc. Just don't change the order that's all. Or if you
+    # do, modify the order in task_fieldnames too.
     task_fieldoptions = {}
     task_types = list(TaskType.objects.all().values_list('id', 'type_name'))
     task_fieldoptions['task_type'] = task_types
@@ -462,8 +469,8 @@ def taskadvanced(request):
     task_fieldoptions['out_sp'] = output_space_objects
     ts_options = list(MathJaxFormulas.objects.filter(equation_type_id=4).values_list('id', 'mathjaxeqn'))
     # print(ts_options)
+    task_fieldoptions['actor'] = [("U", "User"), ("M", "Machine"), ("U&M", "User & Machine")]
     task_fieldoptions['ts_opt'] = ts_options
-    task_fieldoptions['actor'] = [("U", "U"), ("M", "M"), ("U&M", "U&M")]
     regquery_strings = []
     for key, values in task_fieldoptions.items():
         temp = []
@@ -504,7 +511,8 @@ def taskadvanced(request):
                   {
                       "task_fieldnames": task_fieldnames, "task_fieldoptions": task_fieldoptions,
                       "filter_options": filter_options, "results": results,
-                      "query_strings": regquery_strings
+                      "query_strings": regquery_strings, "reroute_string": "taskbasic",
+                      "query_strings": regquery_strings, "reroute_string": "taskbasic",
                   })
 
 def lang_langs(request, pk=None):

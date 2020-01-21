@@ -1,123 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% extends 'layout/layout.html' %}
+{% load static %}
 
-    {% load filters %}
-</head>
-<body>
-<button id="All" onclick="btn_fn2(this)">All</button>
-<button id="Any" onclick="btn_fn2(this)">Any</button>
-<button id="Inc" onclick="btn_fn3(this)">Include</button>
-<button id="Exc" onclick="btn_fn3(this)">Exclude</button>
-{% for key, values in task_fieldoptions.items %}
-    <p>{{ task_fieldnames|indexing:forloop.counter0|indexing:0 }}</p>
-    <ul>
+{% load filters %}
+{% block content %}
+    <div class="query-type button-group">
+      <button class="button is-checked" id="All" onclick="btn_fn(this, ['All', 'Any'])" value=1>All</button>
+      <button class="button" id="Any" onclick="btn_fn(this, ['All', 'Any'])">Any</button>
+      <button class="button is-checked" id="Inc" onclick="btn_fn(this, ['Inc', 'Exc'])" value=1>Include</button>
+      <button class="button" id="Exc" onclick="btn_fn(this, ['Inc', 'Exc'])">Exclude</button>
+    </div>
+        <div class="hero-text-box">
+        <h1 class="fancy">Select your parameters</h1>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Search" id="quicksearch"/>
+      <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+    </div>
+    <div id="filters" class="single-sel-group button-group">
+    {% for key in task_fieldoptions.keys %}
+        <button class="button" data-filter=".{{ task_fieldnames|indexing:forloop.counter0|indexing:1 }}">
+            {{ task_fieldnames|indexing:forloop.counter0|indexing:0 }}
+        </button>
+    {% endfor %}
+    </div>
+    <div class="grid">
+    {% for key, values in task_fieldoptions.items %}
     {% for value in values %}
-        <li><button id="{{ value|task_id_gen:key }}" onclick="single_select(this, {{ query_strings|indexing:forloop.parentloop.counter0|safe }})">{{ value.1 }}</button></li>
+        <button class="button grid-item search-item {{ task_fieldnames|indexing:forloop.parentloop.counter0|indexing:1 }}" id="{{ value|task_id_gen:key }}"  onclick="single_select(this, {{ query_strings|indexing:forloop.parentloop.counter0|safe }})">{{ value.1 }}<span><div class="tex2jax_ignore">{{ value.1 }}</div></span></button>
     {% endfor %}
+    {% endfor %}
+    </div>
+
+{#    <div class="grid">#}
+{#    {% for type in link_data %}#}
+{#        <button class="button grid-item search-item dt" id={{ type.0 }} onclick="sel_desel(this)">{{ type.1 }}</button>#}
+{#    {% endfor %}#}
+{#    {% for prop in link_props %}#}
+{#        <button class="button grid-item search-item props" id={{ prop.0 }} onclick="sel_desel(this)">{{ prop.1 }}</button>#}
+{#    {% endfor %}#}
+{#    </div>#}
+{#    <button id='submit' class='button' onclick="setTimeout(function(){location.href=generate([{{ link_data|id_names:0|safe }}, {{ link_props|id_names:0|safe }}, {{ filter_options|safe }}]);},500);">Submit</button>#}
+{#{% for key, values in task_fieldoptions.items %}#}
+{#    <p>{{ task_fieldnames|indexing:forloop.counter0|indexing:0 }}</p>#}
+{#    <ul>#}
+{#    {% for value in values %}#}
+{#        <li><button id="{{ value|task_id_gen:key }}" onclick="single_select(this, {{ query_strings|indexing:forloop.parentloop.counter0|safe }})">{{ value.1 }}</button></li>#}
+{#    {% endfor %}#}
+{#    </ul>#}
+{#{% endfor %}#}
+
+<button id="submit" class="button" onclick="setTimeout(function(){location.href=generate_task();},500);">Submit</button>
+    {% if results %}
+    <div id="results">
+    <div class="hero-text-box">
+        <h1 class="fancy">Filtered Results</h1>
+    </div>
+    <ul>
+        {% for result in results %}
+            <li><button class='button' onclick="setTimeout(function(){location.href=generate_url({{ result.task_id }}, '{{ reroute_string }}');},500);">{{result.task_name}}</button></li>
+        {% endfor %}
     </ul>
-{% endfor %}
+    </div>
+    {% endif %}
 
-<button onclick="generate();setTimeout(function(){location.href=generate();},500);">Submit</button>
-{% if results %}
-<p>Quality Measures that satisfy the above criteria are as follows: </p>
-<ul>
-    {% for result in results %}
-        <li><a href = "/taskbasic/{{ result.task_id }}">{{ result.task_name }}</a></li>
-    {% endfor %}
-{% endif %}
-</ul>
-
-<script
-			  src="https://code.jquery.com/jquery-3.4.1.min.js"
-			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			  crossorigin="anonymous"></script>
 <script>
-{#This function will make sure that only one of the range options is selected by iterating through all the range_options#}
-{#within the option set and resetting their values except for the value of the clicked button.#}
-function single_select(elem, option_set){
-    var button_temp;
-    var option_id;
-    var index;
-    console.log(option_set)
-    for (index = 0; index < option_set.length; index++) {
-        option_id = option_set[index];
-        console.log(option_id);
-        if (elem.id != option_id) {
-            button_temp = document.getElementById(option_id);
-            console.log(button_temp);
-            button_temp.style.backgroundColor = "#cecece";
-            button_temp.value = 0;
-        } else {
-            if (elem.value == 0) {
-                elem.value = 1;
-                elem.style.backgroundColor = "#f44336";
-            } else {
-                elem.value = 0;
-                elem.style.backgroundColor = "#cecece";
-            }
-        }
-    }
-}
-/* Setting the initial value of the All and Include buttons so that they appear to be chosen by default */
-$(document).ready(function() {
-    var temp1 = document.getElementById("All");
-    var temp2 = document.getElementById("Inc");
-    temp1.style.backgroundColor = "#f44336";
-    temp1.value = 1;
-    temp2.style.backgroundColor = "#f44336";
-    temp2.value = 1;
-});
-function generate2(id_no) {
-    var url_path = location.href.split('/')[0] + '/qmbasic/' + id_no.toString();
-    return url_path;
-}
-    function btn_fn2(elem) {
-        var temp_elem;
-        if (elem.value == 0){
-            if (elem.id == "All"){
-                temp_elem = document.getElementById("Any");
-            }
-            else{
-                temp_elem = document.getElementById("All");
-            }
-            temp_elem.value = 0;
-            temp_elem.style.backgroundColor = "#cecece";
-            elem.value = 1;
-            elem.style.backgroundColor = "#f44336";
-        }
-    }
-    function btn_fn3(elem) {
-        var temp_elem;
-        if (elem.value == 0){
-            if (elem.id == "Inc"){
-                temp_elem = document.getElementById("Exc");
-            }
-            else{
-                temp_elem = document.getElementById("Inc");
-            }
-            temp_elem.value = 0;
-            temp_elem.style.backgroundColor = "#cecece";
-            elem.value = 1;
-            elem.style.backgroundColor = "#f44336";
-        }
-    }
-    function btn_fn1(elem) {
 
-  if (elem.value == 0){
-  elem.style.backgroundColor = "#f44336";
-  elem.value = 1;
-}
-else if (elem.value == 1){
-    elem.style.backgroundColor = "#cecece";
-elem.value = 0;
-}
-}
-function generate(el) {
+function generate_task(el) {
     var url_path;
     /* Base url path has been defined. After that link_data|id_names:0 will return the list of element ids on the
     page following which we get each element by id after typecasting it to a string (this is necessary because otherwise
@@ -148,6 +96,4 @@ function generate(el) {
 return url_path;
 }
 </script>
-
-</body>
-</html>
+{% endblock %}
