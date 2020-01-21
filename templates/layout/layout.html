@@ -29,8 +29,8 @@
     <header>
         <nav>
 {#            <div class="nav-bar">#}
-                <div class="container-fluid main-nav">
-                    <div class="row">
+                <div class="main-nav container-fluid">
+                    <div class="main-row row">
                         <div class="col-4"><img src="{% static 'img/logo-white.png' %}" alt="QCRI Logo" class="logo"></div>
                         <!-- <img src="resources/img/logo.png" alt="QCRI Logo" class="logo-black"> -->
                         <div class="col-2"></div>
@@ -53,6 +53,9 @@
 {#                </div>#}
             </div>
         </nav>
+{#        <div class="container-fluid">#}
+{#            <div class="row">#}
+{#                <div class="col-12">#}
         <div class="hero-text-box">
             <h1>Multidimensional Projections for Visual Analytics</h1>
         </div>
@@ -69,7 +72,10 @@
                 We conclude the survey providing future research axes to fill discovered gaps in this domain.
             </div>
         </div>
-    </section>
+        </section>
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
     </header>
     <section id="search-options">
     {% block content %}

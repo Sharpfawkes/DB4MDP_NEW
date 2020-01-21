@@ -2,6 +2,38 @@
 var qsRegex;
 var buttonFilter;
 
+// The Isotope methods called here are so that the buttons within the seachgrid or any grid are positioned
+// using the css that is present in my css files. Earlier, it would inherit the default layout mode of the isotope
+// object which would mess with button positioning.
+Isotope.Item.prototype._create = function() {
+  // assign id, used for original-order sorting
+  this.id = this.layout.itemGUID++;
+  // transition objects
+  this._transn = {
+    ingProperties: {},
+    clean: {},
+    onEnd: {}
+  };
+  this.sortData = {};
+};
+
+Isotope.Item.prototype.layoutPosition = function() {
+  this.emitEvent( 'layout', [ this ] );
+};
+
+Isotope.prototype.arrange = function( opts ) {
+  // set any options pass
+  this.option( opts );
+  this._getIsInstant();
+  // just filter
+  this.filteredItems = this._filter( this.items );
+  // flag for initalized
+  this._isLayoutInited = true;
+};
+
+// layout mode that does not position items
+Isotope.LayoutMode.create('none');
+
 var $grid = $('.grid').isotope({
   itemSelector: '.grid-item',
   layoutMode: 'fitRows',
@@ -16,6 +48,7 @@ var $grid = $('.grid').isotope({
 
 var $searchgrid = $('#searchgrid').isotope({
   itemSelector: '.search-item',
+  layoutMode: 'none',
   filter: function() {
     var $this = $(this);
     var searchResult = qsRegex ? $this.text().match(qsRegex) : true;

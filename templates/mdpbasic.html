@@ -11,10 +11,10 @@
       <input type="text" placeholder="Search" id="quicksearch"/>
       <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
     </div>
-    <section id="searchgrid">
-    {% for mdp in mdp_list %}
-        <button class="button search-item" onclick="setTimeout(function(){location.href=generate_url({{ mdp.mdp_id }},'{{ reroute_string }}');},500);">{{ mdp.mdp_name }}<span>{{ mdp.mdp_fullname }}</span></button>
-    {% endfor %}
+    <section id="searchgrid" class="button-group">
+        {% for mdp in mdp_list %}
+            <button class="button search-item" onclick="setTimeout(function(){location.href=generate_url({{ mdp.mdp_id }},'{{ reroute_string }}');},500);">{{ mdp.mdp_name }}<span>{{ mdp.mdp_fullname }}</span></button>
+        {% endfor %}
     </section>
     <br/>
     {% if got_item %}
