@@ -5,6 +5,7 @@ $(document).ready(function () {
     // Click before the scroll otherwise the click will be performed only after the scroll so it will look messy for a
     // split second when all the options are displayed together.
     // Automatically adds is-checked class to the first button after the click.
+    add_redundant_elements();
     $("#watchButton").trigger('click');
     // Handler for .ready() called only for pages other than the intro page.
     if (document.getElementById('results')){
@@ -24,6 +25,40 @@ $(document).ready(function () {
         }, 'slow');
     }
 });
+
+function add_redundant_elements(){
+    /* When there are certain filters sections under which no data is present, then I want this function which will
+    run once the page is loaded to added a redundant element to those sections that will say that there is no content
+    in this particular filter section. I start by checking if the page contains a filter section. If it does, i query
+    all the buttons in that section and get their data-filter attribute and split at '.'. So far '.dt' i'll get ['', 'dt']
+    So I take the 1st element. Then I search for all elements that have these class names. If the set of elements returned
+    is a null set, that means a redundant element needs to be inserted. But this can't be a gradient-list with numbering.
+    So what I do is i add red-grad along with gradient-list to the ol class. In pen_styles.css, red-grad is styled to remove
+    the content of the before and after pseudo elements and center the text. I then create the li element and add it to
+    the options-grid. However, for some reason isotope can't detect the new element added to the document. This is why
+     we need to add the new element to the searchgrid's isotope function call which is what additems does. */
+    var filter_div = document.getElementById('filters');
+        if (filter_div){
+            var buttons = filter_div.querySelectorAll(".button");
+            var filter_vals = [];
+            var index;
+            for (index=0; index<buttons.length; index++){
+                filter_vals.push(buttons[index].getAttribute("data-filter").split('.')[1]);
+            }
+            for (index=0; index<filter_vals.length; index++) {
+                if (document.getElementsByClassName(filter_vals[index]).length == 0){
+                    var red_ol = document.createElement("ol");
+                    red_ol.setAttribute('class', 'red-grad gradient-list');
+                    var red_li = document.createElement('li');
+                    red_li.innerHTML = 'Nothing in this section';
+                    red_li.setAttribute('class', 'grid-item '+filter_vals[index]);
+                    red_ol.appendChild(red_li);
+                    document.getElementsByClassName("option-grid")[0].appendChild(red_ol);
+                    $('.option-grid').isotope( 'addItems', red_ol );
+                }
+            }
+        }
+}
 
 // This function will make sure that only one of the range options is selected by iterating through all the range_options
 // within the option set and resetting their values except for the value of the clicked button.

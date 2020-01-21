@@ -35,7 +35,7 @@
         <div class="option-grid">
             <ol class="gradient-list">
             {% for handling_capacity in data_type_vals %}
-                {% if handling_capacity != None %}
+                {% if handling_capacity %}
                     <li class="grid-item dt">
                         <strong>{{ text_display|indexing:forloop.counter0}}</strong> : {{ handling_text|indexing:handling_capacity }}
                     </li>
@@ -44,7 +44,7 @@
             </ol>
             <ol class="gradient-list">
             {% for handling_capacity in tax_vals %}
-                {% if handling_capacity != None %}
+                {% if handling_capacity %}
                     <li class="grid-item tax">
                         <strong>{{ text_tax|indexing:forloop.counter0}}</strong> : {{ handling_text|indexing:handling_capacity }}
                     </li>

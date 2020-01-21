@@ -68,6 +68,15 @@ mjx-container[jax="CHTML"][display="true"] {
     font-family: 'Lato';
 }
 
+ol.red-grad > li::before,
+ol.red-grad > li::after{
+    content: none !important;
+}
+
+ol.red-grad > li{
+    text-align: center;
+}
+
 main {
   display: block;
   margin: 0 auto;
