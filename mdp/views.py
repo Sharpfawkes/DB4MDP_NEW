@@ -58,6 +58,7 @@ from django.core.exceptions import ObjectDoesNotExist
 # https://stackoverflow.com/questions/45163299/django-group-by-field-value
 # https://stackoverflow.com/questions/12809416/django-static-files-404
 # https://docs.djangoproject.com/en/2.0/ref/models/instances/#django.db.models.Model.get_FOO_display
+# https://www.revsys.com/tidbits/tips-using-djangos-manytomanyfield/
 
 data_type_fieldnames = ['dissimilarity_id', 'ordinal_id', 'cartesian_id', 'ne_structures_id', 'categorical_id']
 tax_fieldnames = ['linearity_id', 'supervision_id', 'multi_level_id', 'locality_id', 'steerability_id',
@@ -515,27 +516,34 @@ def taskadvanced(request):
                       "task_fieldnames": task_fieldnames, "task_fieldoptions": task_fieldoptions,
                       "filter_options": filter_options, "results": results,
                       "query_strings": regquery_strings, "reroute_string": "taskbasic",
-                      "query_strings": regquery_strings, "reroute_string": "taskbasic",
                   })
 
 def lang_langs(request, pk=None):
+    # https://www.revsys.com/tidbits/tips-using-djangos-manytomanyfield/
+    # I'm going to be mapping backwards in this function. Instead of finding the languages I'm going to be using the
+    # language to find the related mdps that can be handled. Django has a way to achieve this without having to iterate
+    # through every single MDP and check their lists. The language object knows what mdp objects have a relation onto it
+    # this list of objects can be obtained as a queryset by accessing the parameter specified by the related name in the
+    # main table. i.e. In MDPsForLangs, circle_list has the related_name toolboxes. So to get the mdps that can be
+    # handled using this toolbox, I need to just use language_retd.toolboxes.all(). similarly language_retd.libs.all()
+
     data = Languages.objects.values('language_name', 'language_id').order_by('language_id')
     try:
         language_retd = Languages.objects.get(language_id=pk)
-        all_mdps_handled = MDPsForLang.objects.all()
-        mdps_handled = []
-        for mdp_object in all_mdps_handled:
-            # Getting the list of querysets containing toolboxes and libraries separately
-            mdp_langs = [i.all() for i in getvalues(mdp_object, ['circle_list', 'square_list'])]
-            for query_set in mdp_langs:
-                # The below if statements generates a ton of queries that use inner join etc. Instead using the .exists
-                # property to search for whether the object is present in the query should be faster.
-                # if language_retd in query_set:
-                #     mdps_handled.append(mdp_object)
-                    # If I've already found it in the first i.e. toolboxes queryset I don't want to search libraries also.
-                if query_set.filter(language_id=pk).exists():
-                    mdps_handled.append(mdp_object)
-                    break
+        # .distinct() will handle any duplicates
+        mdps_handled = (language_retd.toolboxes.all() | language_retd.libs.all()).distinct()
+
+        # mdps_handled = []
+        # for mdp_object in all_mdps_handled:
+        #     # Getting the list of querysets containing toolboxes and libraries separately
+        #     mdp_langs = [i.all() for i in getvalues(mdp_object, ['circle_list', 'square_list'])]
+        #     for query_set in mdp_langs:
+        #         # if language_retd in query_set:
+        #         #     mdps_handled.append(mdp_object)
+        #             # If I've already found it in the first i.e. toolboxes queryset I don't want to search libraries also.
+        #         if query_set.filter(language_id=pk).exists():
+        #             mdps_handled.append(mdp_object)
+        #             break
         description = language_retd.description
         toolboxes_suppd = language_retd.toolboxes_suppd.all()
 
