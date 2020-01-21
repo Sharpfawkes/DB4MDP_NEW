@@ -9,6 +9,26 @@ body {
     margin: 20px 45%;
 }
 
+#advd_link{
+    margin: 20px 36%;
+}
+
+#basic_link{
+    margin: 20px 37.5%;
+}
+
+
+#langmdps_link{
+    margin: 20px 35%;
+    width: 30%;
+}
+
+#langlangs_link{
+    margin: 20px 30%;
+    width: 40%;
+}
+
+
 ol > li{
     width: 100%;
 }

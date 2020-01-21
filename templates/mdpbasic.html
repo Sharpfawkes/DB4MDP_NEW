@@ -7,11 +7,12 @@
     <div class="hero-text-box">
         <h1>Choose a projection technique</h1>
     </div>
+    <button id='advd_link' class='button' onclick="setTimeout(function(){location.href='/mdpadvd';},500);">Go to Advanced Querying</button>
     <div class="search-box">
       <input type="text" placeholder="Search" id="quicksearch"/>
       <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
     </div>
-    <section id="searchgrid" class="button-group">
+    <section id="searchgrid">
         {% for mdp in mdp_list %}
             <button class="button search-item" onclick="setTimeout(function(){location.href=generate_url({{ mdp.mdp_id }},'{{ reroute_string }}');},500);">{{ mdp.mdp_name }}<span>{{ mdp.mdp_fullname }}</span></button>
         {% endfor %}

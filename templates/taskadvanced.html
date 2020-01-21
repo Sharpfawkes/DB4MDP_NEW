@@ -3,6 +3,7 @@
 
 {% load filters %}
 {% block content %}
+    <button id='basic_link' class='button' onclick="setTimeout(function(){location.href='/taskbasic';},500);">Go to Basic Querying</button>
     <div class="query-type button-group">
       <button class="button is-checked" id="All" onclick="btn_fn(this, ['All', 'Any'])" value=1>All</button>
       <button class="button" id="Any" onclick="btn_fn(this, ['All', 'Any'])">Any</button>
