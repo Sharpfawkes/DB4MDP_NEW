@@ -315,7 +315,7 @@ class Task(models.Model):
     output_space = models.ForeignKey(MathJaxFormulas, related_name='output_space', on_delete=models.DO_NOTHING)
     #
     #actor_choices = [(x,)*2 for x in ["U", "M", "U&M"]]
-    actor_choices = [("U", "User"), ("M", "Machine"), ("U&M", "User and Machine")]
+    actor_choices = [("U", "User"), ("M", "Machine"), ("UnM", "User and Machine")]
     actor = models.CharField(max_length=100, choices=actor_choices, default="U")
     ts = models.ForeignKey(MathJaxFormulas, related_name="targ_space", on_delete=models.DO_NOTHING, null=True)
     task_property = models.ForeignKey(MDPProps, related_name='mdp_props', on_delete=models.DO_NOTHING, null=True)

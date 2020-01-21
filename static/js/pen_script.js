@@ -84,7 +84,7 @@ $('#filters').on( 'click', 'button', function() {
 
 // use value of search field to filter
 var $quicksearch = $('#quicksearch').keyup( debounce( function() {
-  qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+  qsRegex = new RegExp( $quicksearch.val().replace('\\','\\\\'), 'gi' );
   // console.log(qsRegex);
   $grid.isotope();
   $searchgrid.isotope();

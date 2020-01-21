@@ -5,6 +5,10 @@ body {
   font-family: 'Lato';
 }
 
+/*.MathJax{*/
+/*    font-size: 3em !important;*/
+/*}*/
+
 #submit{
     margin: 20px 45%;
 }
@@ -45,17 +49,17 @@ ol > li > ul > li > ul > li{
 }
 
 /*#searchgrid > button > span{*/
-span{
+.hide-this{
     display: none !important;
 }
 
 /* Preventing mathjax elements from having margins around them.
 I'll make the elements that contain the mathjax equations have padding wherever necessary */
-mjx-container[jax="CHTML"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 0 0 !important;
-}
+/*mjx-container[jax="CHTML"][display="true"] {*/
+/*  display: block;*/
+/*  text-align: center;*/
+/*  margin: 0 0 !important;*/
+/*}*/
 
 
 

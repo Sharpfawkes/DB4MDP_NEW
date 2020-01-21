@@ -6,6 +6,14 @@
     <meta charset="utf-8" />
     <title>QCRI | DB4MDP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  CommonHTML: {
+    scale: 120
+  }
+});
+</script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
@@ -23,7 +31,6 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"/>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-
 </head>
 <body>
     <header>
@@ -94,10 +101,9 @@
 {#                <a class="btn btn-full" id="submit-main" href="#">Submit</a>#}
 {#            </div>#}
 {#        </div>#}
-<script id="MathJax-script" async src={% static 'js/tex-mml-chtml.js' %}></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-{#    <script type="text/javascript" src="{% static 'js/dyn_script.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/dyn_script.js' %}"></script>#}
 {#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>#}
 {#    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>#}
 {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
@@ -112,6 +118,7 @@
 <script src="{% static 'js/myjs.js' %}"></script>
 <script src="{% static 'js/pen_script.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
+
 {#    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>#}
 </body>
 </html>

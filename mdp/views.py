@@ -369,8 +369,11 @@ def reg_query_generator_fn(request, regquery_strings, trivial_string = "range_eq
         # the rangee field. But since we have the range id and not the value of the equation, we need to use rangee_id
         # not just rangee and that's why I have added the _id below.
         if request_val == "Yes":
-            id_obtd = int(query_obj.split(trivial_string)[1])
-            if field_name != "best":
+            try:
+                id_obtd = int(query_obj.split(trivial_string)[1])
+            except ValueError:
+                id_obtd = query_obj.split(trivial_string)[1]
+            if field_name != "best" and field_name != "actor":
                 options[(field_name+"_id")] = id_obtd
             # best is the only field that will be passed to this function that will not use a foreign key. so in that
             # case we should not be adding _id to the end of it because best_id doesn't exist.
@@ -469,7 +472,7 @@ def taskadvanced(request):
     task_fieldoptions['out_sp'] = output_space_objects
     ts_options = list(MathJaxFormulas.objects.filter(equation_type_id=4).values_list('id', 'mathjaxeqn'))
     # print(ts_options)
-    task_fieldoptions['actor'] = [("U", "User"), ("M", "Machine"), ("U&M", "User & Machine")]
+    task_fieldoptions['actor'] = [("U", "User"), ("M", "Machine"), ("UnM", "User & Machine")]
     task_fieldoptions['ts_opt'] = ts_options
     regquery_strings = []
     for key, values in task_fieldoptions.items():
@@ -478,7 +481,7 @@ def taskadvanced(request):
             # value[0] is the id of the object and key is the trivial string.
             temp.append(key + str(value[0]))
         regquery_strings.append(temp)
-    # print(regquery_strings)
+    print(regquery_strings)
     # print(task_fieldoptions)
     query_sets = []
     option_set = []
@@ -504,7 +507,7 @@ def taskadvanced(request):
             break
     if flag == 1:
         combined_query = Q(**{"task_id": None})
-
+    print(combined_query)
     results = Task.objects.filter(combined_query).values('task_id', 'task_name')
     # print(len(results), results)
     return render(request, "taskadvanced.html",

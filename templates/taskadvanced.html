@@ -3,6 +3,7 @@
 
 {% load filters %}
 {% block content %}
+
     <button id='basic_link' class='button' onclick="setTimeout(function(){location.href='/taskbasic';},500);">Go to Basic Querying</button>
     <div class="query-type button-group">
       <button class="button is-checked" id="All" onclick="btn_fn(this, ['All', 'Any'])" value=1>All</button>
@@ -27,7 +28,7 @@
     <div class="grid">
     {% for key, values in task_fieldoptions.items %}
     {% for value in values %}
-        <button class="button grid-item search-item {{ task_fieldnames|indexing:forloop.parentloop.counter0|indexing:1 }}" id="{{ value|task_id_gen:key }}"  onclick="single_select(this, {{ query_strings|indexing:forloop.parentloop.counter0|safe }})">{{ value.1 }}<span><div class="tex2jax_ignore">{{ value.1 }}</div></span></button>
+        <button class="button grid-item search-item {{ task_fieldnames|indexing:forloop.parentloop.counter0|indexing:1 }}" id="{{ value|task_id_gen:key }}"  onclick="single_select(this, {{ query_strings|indexing:forloop.parentloop.counter0|safe }})">{{ value.1 }} <span class="hide-this"><div class="tex2jax_ignore">{{ value.1 }}</div></span></button>
     {% endfor %}
     {% endfor %}
     </div>
