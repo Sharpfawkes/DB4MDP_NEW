@@ -16,6 +16,10 @@ Orange color: #e67e22
 /*    overflow: hidden;*/
 /*}*/
 
+#links-sect{
+    margin: 10% 0;
+}
+
 #submit-main{
     width: 20%;
     margin: 0 40%;
@@ -363,20 +367,20 @@ header .long-copy{
 }
 
 /* Main navi */
-.main-nav {
-    float: right;
-    list-style: none;
-    margin-top: 55px;
-}
+/*.main-nav {*/
+/*    float: right;*/
+/*    list-style: none;*/
+/*    margin-top: 55px;*/
+/*}*/
 
 .main-nav li {
     display: inline-block;
     margin-left: 40px;
 }
 
-.main-nav li a:link,
-.main-nav li a:visited {
-    padding: 8px 0;
+.main-nav a:link,
+.main-nav a:visited {
+    padding: 20px 0;
     color: #fff;
     text-decoration: none;
     text-transform: uppercase;
@@ -386,8 +390,8 @@ header .long-copy{
     transition: border-bottom 0.2s;
 }
 
-.main-nav li a:hover,
-.main-nav li a:active {
+.main-nav a:hover,
+.main-nav a:active {
     border-bottom: 2px solid #e67e22;
 }
 

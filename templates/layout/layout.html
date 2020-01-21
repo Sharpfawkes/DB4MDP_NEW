@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>QCRI | DB4MDP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">#}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
     <!-- Used for setting up the fluid grid -->
@@ -28,15 +28,29 @@
 <body>
     <header>
         <nav>
-            <div class="nav-bar row">
-                <img src="{% static 'img/logo-white.png' %}" alt="QCRI Logo" class="logo">
-                <!-- <img src="resources/img/logo.png" alt="QCRI Logo" class="logo-black"> -->
-                <ul class="main-nav js--main-nav">
-                    <li><a href="/">Resource</a></li>
-                    <li><a href="/#search-options">Search</a></li>
-                    <li><a href="#team">About</a></li>
-                </ul>
+{#            <div class="nav-bar">#}
+                <div class="container-fluid main-nav">
+                    <div class="row">
+                        <div class="col-4"><img src="{% static 'img/logo-white.png' %}" alt="QCRI Logo" class="logo"></div>
+                        <!-- <img src="resources/img/logo.png" alt="QCRI Logo" class="logo-black"> -->
+                        <div class="col-2"></div>
+                        <div class="col-5">
+                            <div class="container-fluid" id="links-sect">
+                                <div class="row">
+                                    <div class="col-5"><a href="/">Resource</a></div>
+                                    <div class="col-4"><a href="/#search-options">Search</a></div>
+                                    <div class="col-3"><a href="#team">About</a></div>
+                                </div>
+                            </div>
+                        </div>
+{#                        <ul class="main-nav js--main-nav">#}
+{#                            <li><a href="/">Resource</a></li>#}
+{#                            <li><a href="/#search-options">Search</a></li>#}
+{#                            <li><a href="#team">About</a></li>#}
+{#                        </ul>#}
+                    </div>
                 <a class="mobile-nav-icon js--nav-icon"><i class="ion-navicon-round"></i></a>
+{#                </div>#}
             </div>
         </nav>
         <div class="hero-text-box">
