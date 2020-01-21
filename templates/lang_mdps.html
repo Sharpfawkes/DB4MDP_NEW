@@ -72,11 +72,13 @@
             {% endfor %}
             </ol>
         {% endif %}
-        {% if description %}
-        <p class="grid-item desc">
-        {{ description }}
-        </p>
-        {% endif %}
+            {% if description %}
+            <ol class="gradient-list">
+                <li class="grid-item desc">
+                    {{ description }}
+                </li>
+            </ol>
+            {% endif %}
         </div>
         {% endif %}
 {% endblock %}
